@@ -1,0 +1,41 @@
+@import "./../../../shared/variables";
+
+// Remove focus border from all inputsa
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgb(255, 163, 50) 0px 1px 2px 0px;
+}
+input {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  height: 40px;
+}
+.wrapper-row {
+  height: 100vh;
+  align-items: center;
+  background-color: $secondary-color;
+}
+
+.auth-form {
+  width: 50%;
+  margin-left: 4rem;
+
+  &__primary-btn {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &__secondary-btn {
+    color: $primary-color;
+  }
+}
+.auth-form__secondary-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: $primary-color;
+}

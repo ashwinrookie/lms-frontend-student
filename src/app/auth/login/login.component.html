@@ -1,0 +1,40 @@
+<div class="row wrapper-row">
+  <div class="col-12 col-md-5">
+    <img src="./../../../assets/login-illustration.svg" alt="" />
+  </div>
+  <div class="col-12 col-md-7">
+    <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h3>LMS-Login</h3>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          formControlName="email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+          formControlName="password"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn auth-form__primary-btn"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+      or
+      <span class="auth-form__secondary-btn" routerLink="signup">Sign up</span>
+      if you are new!
+    </form>
+  </div>
+</div>
