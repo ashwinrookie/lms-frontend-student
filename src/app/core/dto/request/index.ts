@@ -1,0 +1,1 @@
+export * from "./signup-student.request.dto";
