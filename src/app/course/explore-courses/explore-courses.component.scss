@@ -1,0 +1,121 @@
+@import "./../../shared/variables";
+
+.course-card {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.course-card__thumbnail-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.course-card__thumbnail {
+  width: 100%;
+}
+
+.course-card__duration {
+  position: absolute;
+  background-color: antiquewhite;
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  top: 10px;
+  right: 10px;
+  border-radius: 5px;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.course-card__category {
+  color: $primary-color;
+  font-weight: 500;
+}
+
+.course-card__title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.course-card__description {
+  font-size: 14px;
+}
+
+.course-card__instructor-profilepic {
+  margin-right: 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+}
+
+.course-card__instructor-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.course-card__instructor-designation {
+  font-size: 12px;
+  color: rgb(92, 92, 92);
+  margin-bottom: 0;
+}
+
+.course-card__price {
+  margin-left: auto;
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.course-card__enroll-btn {
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  background-color: $primary-color;
+  color: white;
+  font-weight: 500;
+}
+
+.progress-container {
+  display: flex;
+  background-color: $primary-color;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+.progress-container__thumbnail {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.progress-container__course-name {
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.progress-container__date-started {
+  font-size: 14px;
+  color: rgb(233, 233, 233);
+  margin-bottom: 2rem;
+}
+
+.progress-container__progressbar {
+  margin-bottom: -10px;
+}
+
+.progress-container__continue-btn {
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: 500;
+  margin-left: auto;
+}
