@@ -1,0 +1,109 @@
+@import "./../../shared/variables";
+
+.course-details__title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.course-details__description {
+  font-size: 14px;
+  color: #3f4b52;
+  text-align: justify;
+  margin-bottom: 1.5rem;
+}
+
+.course-details__thumnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.course-details__instructor-container,
+.course-duration-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.course-details__instructor-name {
+  margin-bottom: 3px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.course-details__instructor-designation {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #979797;
+}
+
+.course-details__price-container {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-details__price-container p:first-child {
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+
+.course-details__price-container p:last-child {
+  margin-bottom: 3px;
+}
+
+.course-details__enroll-btn {
+  width: 100%;
+  background-color: $primary-color;
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 12px 0;
+  border-radius: 5px;
+}
+
+.course-metrics-card {
+  box-shadow: rgb(255, 220, 178) 0px 2px 5px -1px,
+    rgb(255, 220, 178) 0px 1px 3px -1px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgb(255, 250, 245);
+  padding: 2rem 0;
+}
+.course-metrics-card i {
+  font-size: 30px;
+  color: $primary-color;
+}
+
+.course-metrics-card p:first-of-type {
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.course-metrics-card p:last-of-type {
+  font-weight: 400;
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.instructor-details {
+  background-color: $primary-color;
+  color: white;
+  border-radius: 5px;
+  padding: 1rem 12px;
+}
+.instructor-details__instructor-description {
+  width: 80%;
+  margin: auto;
+  font-size: 14px;
+}
+
+.instructor-details__metric {
+  margin-bottom: 0px;
+  font-size: 22px;
+  font-weight: 500;
+}

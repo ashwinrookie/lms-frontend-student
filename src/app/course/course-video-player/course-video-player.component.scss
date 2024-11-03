@@ -1,0 +1,120 @@
+@import "./../../shared/variables";
+
+.lectures-section__title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lectures-section__title-section p:first-of-type {
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+.lectures-section__title-section p:last-of-type {
+  color: #7c7c7c;
+  margin-bottom: 0;
+}
+
+.lectures-section__lectures-container {
+  border: 1px solid gray;
+  border-radius: 10px;
+  min-height: 100%;
+  padding: 1rem;
+  margin-top: 10px;
+}
+.lectures-container__single-lecture {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: rgb(255, 202, 137) 0px 1px 4px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.lectures-container__single-lecture:last-of-type {
+  margin-bottom: 0px;
+}
+.single-lecture__lecture-count {
+  margin-bottom: 0px;
+  background-color: $primary-color;
+  padding: 30px 40px;
+  color: white;
+  font-size: 22px;
+  font-weight: 500;
+}
+.single-lecture__lecture-duration {
+  color: #7f7f7f;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.single-lecture__lecture-title {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.single-lecture__play-icon {
+  margin-right: 1rem;
+  font-size: 26px;
+}
+.course-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+.course-description {
+  font-size: 15px;
+  margin-bottom: 2rem;
+}
+.instructor-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.instructor-container__name {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+.instructor-container__designation {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #7c7c7c;
+}
+.course-modules-container {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+.course-modules-container__module {
+  box-shadow: rgb(255, 202, 137) 0px 1px 4px;
+  border-radius: 10px;
+  background-color: rgb(255, 237, 213);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.course-modules-container__module:last-of-type {
+  margin-bottom: 0;
+}
+.course-module__thumbnail {
+  height: 100px;
+  width: 120px;
+  margin-right: 1rem;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.course-module__name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.course-module__sections {
+  color: #7c7c7c;
+  margin-bottom: 0;
+}
+.course-module__duration {
+  margin-left: auto;
+  margin-bottom: 0;
+  color: #7c7c7c;
+}

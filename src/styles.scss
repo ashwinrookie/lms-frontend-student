@@ -7,7 +7,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%; // Ensure body is also constrained to the viewport height
-  overflow: hidden;
+  min-height: 100vh; // Ensure body is also constrained to the viewport height
   font-family: "Poppins", sans-serif;
+}
+
+.row {
+  margin: auto;
 }

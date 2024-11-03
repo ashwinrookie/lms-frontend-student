@@ -39,3 +39,22 @@ input {
   text-decoration: underline;
   text-decoration-color: $primary-color;
 }
+
+.google-signin-btn {
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px 2rem;
+  justify-content: center;
+  font-size: 14px;
+  gap: 1rem;
+  border: 1px solid rgb(222, 222, 222);
+  width: 100%;
+}
+
+.google-signin-btn img {
+  height: 24px;
+  width: 24px;
+}
