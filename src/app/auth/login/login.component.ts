@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, ToastService } from 'src/app/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastComponent } from 'src/app/shared/components/toast/toast.component';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

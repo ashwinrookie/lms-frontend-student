@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {
+  GetStudentProfileResponseDTO,
   SignupStudentRequestDTO,
   SignupStudentResponseDTO,
   SigninStudentRequestDTO,
@@ -27,6 +28,12 @@ export class AuthService {
     return this._httpClient.post<SignupStudentResponseDTO>(
       `${this._authApiUrl}/student/register`,
       signupStudentRequestDTO
+    );
+  }
+
+  getStudentProfile(): Observable<GetStudentProfileResponseDTO> {
+    return this._httpClient.get<GetStudentProfileResponseDTO>(
+      `${this._authApiUrl}/student`
     );
   }
 
