@@ -4,9 +4,8 @@ import { take } from 'rxjs';
 import {
 	AppState,
 	getStudentProfile,
-	selectStudentProfileLoaded
+	selectStudentProfileLoaded,
 } from 'src/app/states';
-
 
 @Injectable({
 	providedIn: 'root'
@@ -17,20 +16,28 @@ export class AppInitializerService {
 
 	initializeApp(): Promise<any> {
 		if (localStorage.getItem("authToken")) {
-			this._store.dispatch(getStudentProfile());
-
 			return new Promise((resolve, reject) => {
 				this._store.pipe(
 					select(selectStudentProfileLoaded),
 					take(1)
 				).subscribe(loaded => {
-					if (loaded) {
-						resolve(true);
-					} else {
-						reject('Student profile not loaded');
-					}
+					if (!loaded)
+						this._store.dispatch(getStudentProfile());
+
+					this._store.pipe(
+						select(selectStudentProfileLoaded),
+						take(1)
+					).subscribe(loaded => {
+						if (loaded) {
+							resolve(true);
+						} else {
+							reject('Student profile not loaded');
+						}
+					});
 				});
 			});
-		} else return Promise.resolve();
+		} else {
+			return Promise.resolve();
+		}
 	}
 }

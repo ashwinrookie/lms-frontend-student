@@ -23,18 +23,22 @@ export class StudentEffects {
 			mergeMap(() =>
 				this._authService.getStudentProfile().pipe(
 					map(
-						(student) => getStudentProfileSuccess(
-							{ 
-								student: {
-									email: student.email,
-									firstName: student.firstName,
-									id: student.id,
-									lastName: student.lastName
-								} 
-							}
-						)
+						(student) => {
+							return getStudentProfileSuccess(
+								{
+									student: {
+										email: student.email,
+										firstName: student.firstName,
+										id: student.id,
+										lastName: student.lastName
+									}
+								}
+							)
+						}
 					),
-					catchError((error: Error) => of(getStudentProfileFailure({ error })))
+					catchError((error: Error) => {
+						return of(getStudentProfileFailure({ error }))
+					})
 				)
 			)
 		)
