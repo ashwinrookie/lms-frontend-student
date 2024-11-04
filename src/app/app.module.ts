@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppState, StudentEffects, studentReducer } from './states';
 import { environment } from 'src/environments/environment';
+import { StudentProfileComponent } from './shared/components/modals/student-profile/student-profile.component';
 
 export function appInitializerFactory(
   appInitializerService: AppInitializerService
@@ -22,7 +23,7 @@ export function appInitializerFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, StudentProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
