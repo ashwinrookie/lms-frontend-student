@@ -1,0 +1,65 @@
+@import "./../../shared/variables";
+.page-title {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  font-size: 40px;
+  font-weight: 600;
+}
+.cart-items-no {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+.course-details {
+  display: flex;
+  margin-top: 20px;
+  gap: 1.5rem;
+}
+.course-details__thumbnail {
+  width: 24%;
+  //   margin-right: 1rem;
+}
+.course-details__name {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.course-details__instructor {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.course-details__duration {
+  font-size: 14px;
+}
+.course-details__price {
+  margin-left: auto;
+}
+.course-details__remove-btn {
+  border: none;
+  background: none;
+  height: max-content;
+  color: orangered;
+  margin-left: 2rem;
+}
+.course-details__price {
+  font-size: 18px;
+  font-weight: 600;
+}
+.subtotal-container__title {
+  color: rgb(104, 104, 104);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.subtotal-container__price {
+  font-size: 32px;
+  font-weight: 600;
+}
+.subtotal-container__checkout-btn {
+  width: 100%;
+  border: none;
+  background-color: $primary-color;
+  color: white;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
