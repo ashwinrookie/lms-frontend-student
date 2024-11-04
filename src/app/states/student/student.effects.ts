@@ -6,7 +6,8 @@ import { AuthService } from 'src/app/core';
 import {
 	getStudentProfile,
 	getStudentProfileSuccess,
-	getStudentProfileFailure
+	getStudentProfileFailure,
+	removeStudentProfile
 } from './student.actions';
 
 
@@ -42,5 +43,16 @@ export class StudentEffects {
 				)
 			)
 		)
+	);
+
+	removeStudentProfile$ = createEffect(() =>
+		this._actions$.pipe(
+			ofType(removeStudentProfile),
+			map(() => {
+				// Add any side effects or API calls here, if needed
+				console.log("Student profile removed");
+			})
+		),
+		{ dispatch: false } // No further action dispatched
 	);
 }

@@ -2,7 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import {
 	getStudentProfile,
 	getStudentProfileFailure,
-	getStudentProfileSuccess
+	getStudentProfileSuccess,
+	removeStudentProfile
 } from './student.actions';
 import { initialStudentState } from './student.state';
 
@@ -20,7 +21,8 @@ const studentReducer = createReducer(
 		...state,
 		error,
 		loaded: false
-	}))
+	})),
+	on(removeStudentProfile, () => initialStudentState)
 );
 
 export {
