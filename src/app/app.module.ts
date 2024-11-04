@@ -12,9 +12,13 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppState, StudentEffects, studentReducer } from './states';
+import {
+  AppState,
+  metaReducers,
+  StudentEffects,
+  studentReducer,
+} from './states';
 import { environment } from 'src/environments/environment';
-import { StudentProfileComponent } from './shared/components/modals/student-profile/student-profile.component';
 
 export function appInitializerFactory(
   appInitializerService: AppInitializerService
@@ -23,13 +27,16 @@ export function appInitializerFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent, StudentProfileComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    StoreModule.forRoot<AppState>({ student: studentReducer }),
+    StoreModule.forRoot<AppState>(
+      { student: studentReducer },
+      { metaReducers: metaReducers }
+    ),
     EffectsModule.forRoot([StudentEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

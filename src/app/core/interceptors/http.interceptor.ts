@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 import {
 	HttpRequest,
 	HttpHandler,
@@ -11,8 +13,6 @@ import {
 import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
 import { getErrorMessage } from '../helpers';
 import { ErrorCodes } from '../errors';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -30,10 +30,10 @@ export class HttpInterceptorService implements HttpInterceptor {
 		if (token)
 			clonedRequest = request.clone({
 				setHeaders: {
-					Authorization: `Bearer ${token}`
-				}
+					authorization: `Bearer ${token}`
+				},
+				withCredentials: true
 			});
-
 
 		return next.handle(clonedRequest).pipe(
 			map((event: HttpEvent<any>) => {
