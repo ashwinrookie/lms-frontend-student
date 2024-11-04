@@ -6,19 +6,22 @@ import { CourseVideoPlayerComponent } from './course-video-player/course-video-p
 import { CourseComponent } from './course.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CourseComponent,
-    children: [
-      { path: 'explore-courses', component: ExploreCoursesComponent },
-      { path: 'course-details', component: CourseDetailsComponent },
-      { path: 'course-video-player', component: CourseVideoPlayerComponent },
-    ],
-  },
+	{
+		path: '',
+		component: CourseComponent,
+		children: [
+			{
+				path: 'explore-courses',
+				component: ExploreCoursesComponent
+			},
+			{ path: 'course-details', component: CourseDetailsComponent },
+			{ path: 'course-video-player', component: CourseVideoPlayerComponent },
+		],
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
-export class CourseRoutingModule {}
+export class CourseRoutingModule { }
