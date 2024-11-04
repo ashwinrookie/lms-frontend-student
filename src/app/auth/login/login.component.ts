@@ -36,9 +36,8 @@ export class LoginComponent {
 				this._router.navigate(['/course/explore-courses']);
 			},
 			error: (error: Error) => {
-				console.log('Login Failed::' + error);
 				this.showError(error.message);
-			},
+			}
 		});
 	}
 

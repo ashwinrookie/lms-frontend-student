@@ -9,10 +9,13 @@ const getStudentProfileSuccess = createAction(
 const getStudentProfileFailure = createAction(
 	'[Student] Get Profile Failure',
 	props<{ error: Error }>()
-)
+);
+
+const removeStudentProfile = createAction('[Student] Remove Profile');
 
 export {
 	getStudentProfile,
 	getStudentProfileSuccess,
-	getStudentProfileFailure
+	getStudentProfileFailure,
+	removeStudentProfile
 };
