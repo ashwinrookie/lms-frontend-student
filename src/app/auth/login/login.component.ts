@@ -32,6 +32,7 @@ export class LoginComponent {
 		this._authService.signinStudent(formData).subscribe({
 			next: (signinresponse) => {
 				localStorage.setItem("authToken", signinresponse.accessToken);
+				localStorage.setItem("refreshToken", signinresponse.refreshToken);
 
 				this._router.navigate(['/course/explore-courses']);
 			},

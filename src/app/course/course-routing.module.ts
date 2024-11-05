@@ -5,6 +5,7 @@ import { ExploreCoursesComponent } from './explore-courses/explore-courses.compo
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseVideoPlayerComponent } from './course-video-player/course-video-player.component';
 import { CourseComponent } from './course.component';
+import { exploreCoursesResolver } from './resolvers/explore-courses.resolver';
 
 const routes: Routes = [
 	{
@@ -13,7 +14,8 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'explore-courses',
-				component: ExploreCoursesComponent
+				component: ExploreCoursesComponent,
+				resolve: [exploreCoursesResolver()]
 			},
 			{ path: 'course-details', component: CourseDetailsComponent },
 			{ path: 'course-video-player', component: CourseVideoPlayerComponent },
