@@ -1,7 +1,13 @@
-import { CourseLanguages, CoursePriceCurrencies, CourseStatuses, CourseSubtitles } from "../../types";
+import { 
+	CourseLanguages, 
+	CoursePriceCurrencies, 
+	CourseStatuses, 
+	CourseSubtitles 
+} from "./explore-courses.response.dto";
 
 
-interface ExploreCoursesCreatorResponseDTO {
+
+interface ExploreCourseInDetailCreatorResponseDTO {
 	id: string;
 	profilePicture: string | null;
 	designation: string | null;
@@ -9,12 +15,12 @@ interface ExploreCoursesCreatorResponseDTO {
 	lastName: string;
 }
 
-interface ExploreCoursesPriceResponseDTO {
+interface ExploreCourseInDetailPriceResponseDTO {
 	currency: CoursePriceCurrencies;
 	value: number;
 }
 
-interface ExploreCoursesSectionLectureResponseDTO {
+interface ExploreCourseInDetailSectionLectureResponseDTO {
 	thumbnail: string | null,
 	description: string,
 	duration: number,
@@ -23,8 +29,8 @@ interface ExploreCoursesSectionLectureResponseDTO {
 	title: string
 }
 
-interface ExploreCoursesSectionResponseDTO {
-	lectures: ExploreCoursesSectionLectureResponseDTO[];
+interface ExploreCourseInDetailSectionResponseDTO {
+	lectures: ExploreCourseInDetailSectionLectureResponseDTO[];
 	id: string;
 	lecturesCount: number;
 	lecturesDuration: number;
@@ -32,14 +38,14 @@ interface ExploreCoursesSectionResponseDTO {
 	title: string;
 }
 
-interface ExploreCoursesResponseDTO {
+interface ExploreCourseInDetailResponseDTO {
 	rating: null,
-	creators: ExploreCoursesCreatorResponseDTO[],
+	creators: ExploreCourseInDetailCreatorResponseDTO[],
 	languages: CourseLanguages[],
 	subtitles: CourseSubtitles[],
 	materialsAndOffers: string[],
-	price: ExploreCoursesPriceResponseDTO,
-	sections: ExploreCoursesSectionResponseDTO[],
+	price: ExploreCourseInDetailPriceResponseDTO,
+	sections: ExploreCourseInDetailSectionResponseDTO[],
 	category: string,
 	description: string,
 	id: string,
@@ -57,5 +63,5 @@ export {
 	CourseSubtitles,
 	CoursePriceCurrencies,
 	CourseStatuses,
-	ExploreCoursesResponseDTO
+	ExploreCourseInDetailResponseDTO
 };

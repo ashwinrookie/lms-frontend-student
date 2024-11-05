@@ -1,3 +1,5 @@
+export * from "./explore-course-in-detail.request.dto";
+
 export * from "./explore-courses.request.dto";
 
 export * from './signup-student.request.dto';
