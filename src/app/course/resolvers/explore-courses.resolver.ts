@@ -8,7 +8,7 @@ export function exploreCoursesResolver(): ResolveFn<ExploreCoursesResponseDTO> {
 	return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 		const courseService = inject(CourseService);
 
-		return courseService.exploreCourses().pipe(
+		return courseService.exploreCourses(null, []).pipe(
 			catchError((error) => {
 				throw error;
 			})

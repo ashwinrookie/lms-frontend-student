@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ExploreCourseInDetailResponseDTO, ExploreCoursesResponseDTO } from 'src/app/core';
@@ -13,9 +13,23 @@ export class CourseService {
 
 	constructor(private _httpClient: HttpClient) { }
 
-	exploreCourses(): Observable<ExploreCoursesResponseDTO> {
+	exploreCourses(
+		searchString: string | null,
+		categories: string[]
+	): Observable<ExploreCoursesResponseDTO> {
+		let params = new HttpParams();
+
+		if (searchString) {
+			params = params.set('search', searchString);
+		}
+
+		if (categories.length > 0) {
+			params = params.set('categories', categories.join(','));
+		}
+
 		return this._httpClient.get<ExploreCoursesResponseDTO>(
-			`${this._courseApiUrl}/explore`
+			`${this._courseApiUrl}/explore`,
+			{ params }
 		);
 	}
 
