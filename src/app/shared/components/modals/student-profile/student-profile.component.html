@@ -12,24 +12,19 @@
     <div class="col-5">
       <div class="profile-picture-container">
         <img
-          class="profile-picture-container__img w-75 ms-2"
-          src="./../../../../../assets/dummy-instructor.svg"
+          class="profile-picture-container__img p-2 ms-2"
+          [src]="student.profilePicture"
           alt=""
         />
       </div>
     </div>
     <div class="col-7">
       <label for="">Frist Name:</label>
-      <p>Dvaid J</p>
+      <p>{{ student.firstName }}</p>
       <label for="">Last Name:</label>
-      <p>Malan</p>
+      <p>{{ student.lastName }}</p>
       <label for="">Email:</label>
-      <p>davidjmalan&#64;gmail.com</p>
+      <p>{{ student.email }}</p>
     </div>
   </div>
 </div>
-<!-- <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="closeModal()">
-    Close
-  </button>
-</div> -->
