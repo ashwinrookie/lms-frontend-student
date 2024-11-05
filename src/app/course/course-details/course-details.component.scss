@@ -25,10 +25,17 @@
   gap: 12px;
   margin-bottom: 1rem;
 }
+.course-details__instructor-profilepic {
+  margin-right: 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  object-fit: contain;
+}
 
 .course-details__instructor-name {
   margin-bottom: 3px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
 }
 
@@ -95,6 +102,11 @@
   color: white;
   border-radius: 5px;
   padding: 1rem 12px;
+}
+
+.instructor-details__instructor-image {
+  width: 35%;
+  border-radius: 5px;
 }
 .instructor-details__instructor-description {
   width: 80%;
