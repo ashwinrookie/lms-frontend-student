@@ -3,38 +3,36 @@
     <div class="col-12 col-md-6">
       <div class="course-details">
         <p class="course-details__title">
-          Introduction to Artificial Intelligence with Python
+          {{ course.title }}
         </p>
         <p class="course-details__description">
-          AI is transforming how we live, work, and play. By enabling new
-          technologies like self-driving cars and recommendation systems or
-          improving old ones like medical diagnostics and search engines, the
-          demand for expertise in AI and machine learning is growing rapidly.
-          This course will enable you to take the first step toward solving
-          important real-world problems and future-proofing your career.
+          {{ course.description }}
         </p>
 
         <div class="course-details__instructor-container">
           <img
             class="course-details__instructor-profilepic"
-            src="./../../../assets/dummy-instructor.svg"
+            [src]="course.creators[0].profilePicture"
             alt=""
           />
           <div>
-            <p class="course-details__instructor-name">David J.Malan</p>
+            <p class="course-details__instructor-name">
+              {{ course.creators[0].firstName }}
+              {{ course.creators[0].lastName }}
+            </p>
             <p class="course-details__instructor-designation">
-              Harvard University
+              {{ course.creators[0].designation }}
             </p>
           </div>
         </div>
 
         <div class="course-duration-container">
           <i class="bi bi-clock"></i>
-          <div>8 Hrs 20 Mins</div>
+          <div>{{ course.totalDuration | formatTime }}</div>
         </div>
 
         <div class="course-details__price-container">
-          <p>$ 450</p>
+          <p>$ {{ course.price.value }}</p>
           <p>70 Already Enrolled</p>
         </div>
 
@@ -47,11 +45,7 @@
       </div>
     </div>
     <div class="col-12 col-md-6">
-      <img
-        class="course-details__thumnail"
-        src="./../../../assets/dummy-course.svg"
-        alt=""
-      />
+      <img class="course-details__thumnail" [src]="course.image" alt="" />
     </div>
   </div>
 
@@ -60,14 +54,14 @@
       <div class="course-metrics-card">
         <i class="bi bi-file-earmark-text-fill"></i>
         <p>Modules</p>
-        <p>13+</p>
+        <p>{{ course.totalSectionsCount }}</p>
       </div>
     </div>
     <div class="col-12 col-md-4">
       <div class="course-metrics-card">
         <i class="bi bi-camera-video-fill"></i>
         <p>Lectures</p>
-        <p>40+</p>
+        <p>{{ course.totalLecturesCount }}</p>
       </div>
     </div>
     <div class="col-12 col-md-4">
@@ -84,12 +78,14 @@
       <div class="d-flex align-items-center">
         <img
           class="instructor-details__instructor-image"
-          src="./../../../assets/dummy-instructor-full.svg"
+          [src]="course.creators[0].profilePicture"
           alt=""
         />
         <div class="text-center">
           <p>Instructed by</p>
-          <p class="instructor-details__instructor-name">David J Malan</p>
+          <p class="instructor-details__instructor-name">
+            {{ course.creators[0].firstName }} {{ course.creators[0].lastName }}
+          </p>
           <p class="instructor-details__instructor-description">
             He is Gordon McKay Professor of the Practice of Computer Science at
             Harvard University in the School of Engineering and Applied Sciences
@@ -119,32 +115,9 @@
 
   <div class="mt-5 pt-3 mb-5 pb-5">
     <h3 class="mb-4">What You will learn in this Course</h3>
-    <p>
+    <p *ngFor="let value of course.materialsAndOffers">
       <img src="./../../../assets/check.png" alt="" />
-      You will master the Python programming language by building 100 unique
-      projects over 100 days.
-    </p>
-    <p>
-      <img src="./../../../assets/check.png" alt="" />
-      You will learn automation, game, app and web development, data science and
-      machine learning all using Python.
-    </p>
-    <p>
-      <img src="./../../../assets/check.png" alt="" />
-      You will be able to program in Python professionally
-    </p>
-    <p>
-      <img src="./../../../assets/check.png" alt="" />
-      You will learn Selenium, Beautiful Soup, Request, Flask, Pandas, NumPy,
-      Scikit Learn, Plotly, and Matplotlib.
-    </p>
-    <p>
-      <img src="./../../../assets/check.png" alt="" />
-      Be able to build fully fledged websites and web apps with Python
-    </p>
-    <p>
-      <img src="./../../../assets/check.png" alt="" />
-      Be able to use Python for data science and machine learning
+      {{ value }}
     </p>
   </div>
 </div>
