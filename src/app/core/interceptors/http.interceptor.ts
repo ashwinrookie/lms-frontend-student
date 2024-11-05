@@ -74,8 +74,9 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 		return this._http.post(`${environment.apiUrl}/auth/token/refresh`, { refreshToken }).pipe(
 			switchMap((response: any) => {
-				const newAccessToken = response.data.accessToken;
-				const newRefreshToken = response.data.refreshToken;
+				console.log("response in switch map http interceptor ::", response);
+				const newAccessToken = response.accessToken;
+				const newRefreshToken = response.refreshToken;
 
 				localStorage.setItem('authToken', newAccessToken);
 				localStorage.setItem('refreshToken', newRefreshToken);
@@ -83,7 +84,8 @@ export class HttpInterceptorService implements HttpInterceptor {
 				const clonedRequest = request.clone({
 					setHeaders: {
 						Authorization: `Bearer ${newAccessToken}`
-					}
+					},
+					withCredentials: true
 				});
 
 				return next.handle(clonedRequest);

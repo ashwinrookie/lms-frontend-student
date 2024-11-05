@@ -34,7 +34,8 @@ export class AppInitializerService {
 				});
 			});
 		} else {
-			return Promise.resolve();
+			console.log("else app init");
+			return Promise.resolve(true);
 		}
 	}
 }
