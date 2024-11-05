@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ExploreCoursesResponseDTO } from 'src/app/core';
 
 @Component({
   selector: 'app-explore-courses',
