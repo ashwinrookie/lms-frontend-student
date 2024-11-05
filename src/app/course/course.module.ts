@@ -8,7 +8,7 @@ import { CourseDetailsComponent } from './course-details/course-details.componen
 import { CourseVideoPlayerComponent } from './course-video-player/course-video-player.component';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from '../shared/components/header/header.component';
-
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     CourseComponent,
@@ -21,6 +21,7 @@ import { HeaderComponent } from '../shared/components/header/header.component';
     CourseRoutingModule,
     NgbProgressbarModule,
     HeaderComponent,
+    NgbDropdownModule,
   ],
 })
 export class CourseModule {}
