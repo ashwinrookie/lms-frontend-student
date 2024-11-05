@@ -47,12 +47,14 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 				if (error.error && Array.isArray(error.error.errors) && error.error.errors.length > 0) {
 					const firstError = error.error.errors[0];
+					console.log("firstError ::", firstError);
 					if (firstError) {
 						const errorCode = firstError.code;
 						errorMessage = getErrorMessage(errorCode);
+						console.log("errorMessage ::", errorMessage);
 
 						if (errorCode === ErrorCodes.unauthorized)
-							return this.handleUnauthorizedError(request, next, error);
+							return this._handleUnauthorizedError(request, next, error);
 
 					}
 				}
@@ -62,8 +64,9 @@ export class HttpInterceptorService implements HttpInterceptor {
 		);
 	}
 
-	private handleUnauthorizedError(request: HttpRequest<unknown>, next: HttpHandler, error: HttpErrorResponse): Observable<HttpEvent<unknown>> {
+	private _handleUnauthorizedError(request: HttpRequest<unknown>, next: HttpHandler, error: HttpErrorResponse): Observable<HttpEvent<unknown>> {
 		const refreshToken = localStorage.getItem('refreshToken');
+		console.log("_handleUnauthorizedError fn triggered::", refreshToken);
 
 		if (!refreshToken)
 			return throwError(() => new Error("Refresh token is missing"));
