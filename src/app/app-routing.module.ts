@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { getStudentProfileResolver } from './core';
 
 const routes: Routes = [
   {
@@ -10,10 +11,12 @@ const routes: Routes = [
     path: 'course',
     loadChildren: () =>
       import('./course/course.module').then((m) => m.CourseModule),
+    resolve: [getStudentProfileResolver()],
   },
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
+    resolve: [getStudentProfileResolver()],
   },
 ];
 

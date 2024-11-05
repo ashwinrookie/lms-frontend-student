@@ -8,23 +8,23 @@ import { CourseComponent } from './course.component';
 import { exploreCoursesResolver } from './resolvers/explore-courses.resolver';
 
 const routes: Routes = [
-	{
-		path: '',
-		component: CourseComponent,
-		children: [
-			{
-				path: 'explore-courses',
-				component: ExploreCoursesComponent,
-				resolve: [exploreCoursesResolver()]
-			},
-			{ path: 'course-details', component: CourseDetailsComponent },
-			{ path: 'course-video-player', component: CourseVideoPlayerComponent },
-		],
-	},
+  {
+    path: '',
+    component: CourseComponent,
+    children: [
+      {
+        path: 'explore-courses',
+        component: ExploreCoursesComponent,
+        resolve: [exploreCoursesResolver()],
+      },
+      { path: 'course-details', component: CourseDetailsComponent },
+      { path: 'course-video-player', component: CourseVideoPlayerComponent },
+    ],
+  },
 ];
 
 @NgModule({
-	imports: [RouterModule.forChild(routes)],
-	exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class CourseRoutingModule { }
+export class CourseRoutingModule {}
