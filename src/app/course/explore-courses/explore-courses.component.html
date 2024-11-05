@@ -34,119 +34,69 @@
     </div>
   </div>
   <h2>Explore Courses</h2>
+
+  <div class="filter-container mt-3">
+    <div class="row">
+      <div class="col-8">
+        <p class="mb-1">Search</p>
+      </div>
+      <div class="col-4">
+        <p class="mb-1">Filter by Category</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <input class="filter-container__search-bar" type="search" />
+      </div>
+      <div class="col-4">
+        <select
+          class="form-select filter-container__select"
+          aria-label="Default select example"
+        >
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <div class="row mt-4">
-    <div class="col-4">
-      <div class="course-card" routerLink="/course/course-details">
+    <div *ngFor="let course of courses" class="col-4">
+      <div
+        class="course-card"
+        [routerLink]="['/course/course-details', course.id]"
+      >
         <div class="course-card__thumbnail-container">
-          <img
-            class="course-card__thumbnail"
-            src="./../../../assets/dummy-course.svg"
-            alt=""
-          />
+          <img class="course-card__thumbnail" [src]="course.image" alt="" />
           <div class="course-card__duration">
             <i class="bi bi-clock"></i>
-            <div>10 hrs 10 mins</div>
+            <div>{{ course.totalDuration | formatTime }}</div>
           </div>
         </div>
         <div class="course-card__body">
-          <p class="course-card__category">Development</p>
-          <p class="course-card__title">Introduction to Python Programming</p>
+          <p class="course-card__category">{{ course.category }}</p>
+          <p class="course-card__title">{{ course.title }}</p>
           <p class="course-card__description mb-5">
-            Python is a popular programming language. It was created by Guido
-            van Rossum, and released in 1991.
+            {{ course.description }}
           </p>
 
           <div class="d-flex align-items-center mb-4">
             <img
               class="course-card__instructor-profilepic"
-              src="./../../../assets/dummy-instructor.svg"
+              [src]="course.creators[0].profilePicture"
               alt=""
             />
             <div>
-              <p class="course-card__instructor-name">David J.Malan</p>
+              <p class="course-card__instructor-name">
+                {{ course.creators[0].firstName }}
+                {{ course.creators[0].lastName }}
+              </p>
               <p class="course-card__instructor-designation">
-                Harvard University
+                {{ course.creators[0].designation }}
               </p>
             </div>
-            <p class="course-card__price">$ 450</p>
-          </div>
-          <button class="course-card__enroll-btn">Enroll Now</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="course-card">
-        <div class="course-card__thumbnail-container">
-          <img
-            class="course-card__thumbnail"
-            src="./../../../assets/dummy-course.svg"
-            alt=""
-          />
-          <div class="course-card__duration">
-            <i class="bi bi-clock"></i>
-            <div>10 hrs 10 mins</div>
-          </div>
-        </div>
-        <div class="course-card__body">
-          <p class="course-card__category">Development</p>
-          <p class="course-card__title">Introduction to Python Programming</p>
-          <p class="course-card__description mb-5">
-            Python is a popular programming language. It was created by Guido
-            van Rossum, and released in 1991.
-          </p>
-
-          <div class="d-flex align-items-center mb-4">
-            <img
-              class="course-card__instructor-profilepic"
-              src="./../../../assets/dummy-instructor.svg"
-              alt=""
-            />
-            <div>
-              <p class="course-card__instructor-name">David J.Malan</p>
-              <p class="course-card__instructor-designation">
-                Harvard University
-              </p>
-            </div>
-            <p class="course-card__price">$ 450</p>
-          </div>
-          <button class="course-card__enroll-btn">Enroll Now</button>
-        </div>
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="course-card">
-        <div class="course-card__thumbnail-container">
-          <img
-            class="course-card__thumbnail"
-            src="./../../../assets/dummy-course.svg"
-            alt=""
-          />
-          <div class="course-card__duration">
-            <i class="bi bi-clock"></i>
-            <div>10 hrs 10 mins</div>
-          </div>
-        </div>
-        <div class="course-card__body">
-          <p class="course-card__category">Development</p>
-          <p class="course-card__title">Introduction to Python Programming</p>
-          <p class="course-card__description mb-5">
-            Python is a popular programming language. It was created by Guido
-            van Rossum, and released in 1991.
-          </p>
-
-          <div class="d-flex align-items-center mb-4">
-            <img
-              class="course-card__instructor-profilepic"
-              src="./../../../assets/dummy-instructor.svg"
-              alt=""
-            />
-            <div>
-              <p class="course-card__instructor-name">David J.Malan</p>
-              <p class="course-card__instructor-designation">
-                Harvard University
-              </p>
-            </div>
-            <p class="course-card__price">$ 450</p>
+            <p class="course-card__price">$ {{ course.price.value }}</p>
           </div>
           <button class="course-card__enroll-btn">Enroll Now</button>
         </div>
