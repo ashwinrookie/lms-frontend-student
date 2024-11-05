@@ -65,7 +65,7 @@
     <div *ngFor="let course of courses" class="col-4">
       <div
         class="course-card"
-        [routerLink]="['/course/course-details', course.id]"
+        [routerLink]="['./course-details', course.id]"
       >
         <div class="course-card__thumbnail-container">
           <img class="course-card__thumbnail" [src]="course.image" alt="" />

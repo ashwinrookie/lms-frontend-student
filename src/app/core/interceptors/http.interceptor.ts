@@ -25,7 +25,9 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 	intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 		const token = localStorage.getItem('authToken');
-		let clonedRequest = request;
+		let clonedRequest = request.clone({
+			withCredentials: true
+		});
 
 		if (token)
 			clonedRequest = request.clone({
@@ -43,6 +45,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 				return event;
 			}),
 			catchError((error: HttpErrorResponse) => {
+				console.log("error in http interceptor ::", error);
 				let errorMessage: string = "Something went wrong, please try again";
 
 				if (error.error && Array.isArray(error.error.errors) && error.error.errors.length > 0) {

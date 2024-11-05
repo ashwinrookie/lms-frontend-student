@@ -14,7 +14,8 @@ const routes: Routes = [
 		component: CourseComponent,
 		children: [
 			{
-				path: 'explore-courses',
+				path: '',
+				pathMatch: "full",
 				component: ExploreCoursesComponent,
 				resolve: [
 					exploreCoursesResolver(),
