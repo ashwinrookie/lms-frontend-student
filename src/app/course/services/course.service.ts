@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExploreCoursesResponseDTO } from 'src/app/core';
+import { ExploreCourseInDetailResponseDTO, ExploreCoursesResponseDTO } from 'src/app/core';
 import { environment } from 'src/environments/environment';
 
 
@@ -16,6 +16,12 @@ export class CourseService {
 	exploreCourses(): Observable<ExploreCoursesResponseDTO> {
 		return this._httpClient.get<ExploreCoursesResponseDTO>(
 			`${this._courseApiUrl}/explore`
+		);
+	}
+
+	exploreCourseInDetail(courseId: string): Observable<ExploreCourseInDetailResponseDTO> {
+		return this._httpClient.get<ExploreCoursesResponseDTO>(
+			`${this._courseApiUrl}/explore/${courseId}`
 		);
 	}
 }
