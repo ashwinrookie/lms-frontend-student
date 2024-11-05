@@ -9,10 +9,16 @@ import { ExploreCoursesResponseDTO } from 'src/app/core';
 })
 export class ExploreCoursesComponent {
   private _courses: ExploreCoursesResponseDTO[];
+  private _categories: string[];
 
   constructor(private _route: ActivatedRoute) {
     this._courses = this._route.snapshot.data[0];
+	this._categories = this._route.snapshot.data[1];
 
-    console.log('courses ::', this._courses);
+    console.log('courses ::', this._courses, this._categories);
+  }
+
+  get categories() {
+	return this._categories;
   }
 }

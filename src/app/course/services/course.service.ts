@@ -24,4 +24,10 @@ export class CourseService {
 			`${this._courseApiUrl}/explore/${courseId}`
 		);
 	}
+
+	getCourseCategories(): Observable<string[]> {
+		return this._httpClient.get<string[]>(
+			`${this._courseApiUrl}/category`
+		);
+	}
 }
