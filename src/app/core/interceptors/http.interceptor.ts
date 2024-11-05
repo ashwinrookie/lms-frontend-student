@@ -89,6 +89,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 				return next.handle(clonedRequest);
 			}),
 			catchError((refreshError: HttpErrorResponse) => {
+				console.log("refreshError ::", refreshError);
 				let refreshErrorMessage = "Session timeout. Please log in again.";
 
 				localStorage.removeItem("authToken");
