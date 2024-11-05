@@ -47,11 +47,9 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 				if (error.error && Array.isArray(error.error.errors) && error.error.errors.length > 0) {
 					const firstError = error.error.errors[0];
-					console.log("firstError ::", firstError);
 					if (firstError) {
 						const errorCode = firstError.code;
 						errorMessage = getErrorMessage(errorCode);
-						console.log("errorMessage ::", errorMessage);
 
 						if (errorCode === ErrorCodes.unauthorized)
 							return this._handleUnauthorizedError(request, next, error);
@@ -66,7 +64,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 	private _handleUnauthorizedError(request: HttpRequest<unknown>, next: HttpHandler, error: HttpErrorResponse): Observable<HttpEvent<unknown>> {
 		const refreshToken = localStorage.getItem('refreshToken');
-		console.log("_handleUnauthorizedError fn triggered::", refreshToken);
 
 		if (!refreshToken)
 			return throwError(() => new Error("Refresh token is missing"));
@@ -74,8 +71,13 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 		return this._http.post(`${environment.apiUrl}/auth/token/refresh`, { refreshToken }).pipe(
 			switchMap((response: any) => {
+<<<<<<< Updated upstream
 				const newAccessToken = response.data.accessToken;
 				const newRefreshToken = response.data.refreshToken;
+=======
+				const newAccessToken = response.accessToken;
+				const newRefreshToken = response.refreshToken;
+>>>>>>> Stashed changes
 
 				localStorage.setItem('authToken', newAccessToken);
 				localStorage.setItem('refreshToken', newRefreshToken);
