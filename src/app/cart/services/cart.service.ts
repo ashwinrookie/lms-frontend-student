@@ -20,4 +20,11 @@ export class CartService {
 			}
 		);
 	}
+
+	clearCartItems() {
+		return this._httpClient.post<null>(
+			`${this._cartApiUrl}/cart/add-course`,
+			{}
+		);
+	}
 }
