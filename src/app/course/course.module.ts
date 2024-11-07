@@ -9,6 +9,8 @@ import { CourseVideoPlayerComponent } from './course-video-player/course-video-p
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { PipeModule } from '../core/pipes/pipe.module';
+
 @NgModule({
   declarations: [
     CourseComponent,
@@ -22,6 +24,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     NgbProgressbarModule,
     HeaderComponent,
     NgbDropdownModule,
+    PipeModule,
   ],
 })
 export class CourseModule {}

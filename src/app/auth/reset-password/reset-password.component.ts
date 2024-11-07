@@ -26,7 +26,7 @@ export class ResetPasswordComponent {
     this._authService.resetPassword(formData).subscribe({
       next: (resetPasswordResponse) => {
         console.log('Password Reset Successful!', resetPasswordResponse);
-        this._router.navigate(['/']);
+        this._router.navigate(['../login']);
       },
       error: (error: Error) => {
         console.log('Password Reset Failed!', error);

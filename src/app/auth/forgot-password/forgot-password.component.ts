@@ -24,7 +24,7 @@ export class ForgotPasswordComponent {
     this._authService.forgotPassword(formData).subscribe({
       next: (forgotPasswordResponse) => {
         console.log('Email Sent', forgotPasswordResponse);
-        this._router.navigate(['/reset-password']);
+        this._router.navigate(['../reset-password']);
       },
       error: (error: Error) => {
         console.log('Email failed', error);

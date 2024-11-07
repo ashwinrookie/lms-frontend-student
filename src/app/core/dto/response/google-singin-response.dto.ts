@@ -1,10 +1,10 @@
 interface GoogleSignInResponseDTO {
-  id: String;
-  firstName: String;
-  lastName: String;
-  email: String;
-  accessToken: String;
-  refreshToken: String;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export { GoogleSignInResponseDTO };
