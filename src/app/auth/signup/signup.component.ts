@@ -34,7 +34,7 @@ export class SignupComponent {
 				localStorage.setItem("authToken", signupResponse.accessToken);
 				localStorage.setItem("refreshToken", signupResponse.refreshToken);
 
-				this._router.navigate(['/course/explore-courses']);
+				this._router.navigate(['/']);
 			},
 			error: (error: Error) => {
 				console.log('Error in signup student ::', error.message);
