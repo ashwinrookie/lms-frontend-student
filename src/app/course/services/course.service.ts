@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CartService } from 'src/app/cart/services/cart.service';
 import {
   ExploreCourseInDetailResponseDTO,
   ExploreCoursesResponseDTO,
@@ -13,7 +14,10 @@ import { environment } from 'src/environments/environment';
 export class CourseService {
   private _courseApiUrl = `${environment.apiUrl}/main/course`;
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _cartService: CartService
+  ) {}
 
   exploreCourses(
     searchString: string | null,
@@ -47,5 +51,9 @@ export class CourseService {
 
   getCourseCategories(): Observable<string[]> {
     return this._httpClient.get<string[]>(`${this._courseApiUrl}/category`);
+  }
+
+  addCourseToCart(courseId: string) {
+    return this._cartService.addCourseToCart(courseId);
   }
 }
