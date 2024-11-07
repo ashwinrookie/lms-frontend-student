@@ -30,18 +30,6 @@ export class ResetPasswordComponent {
 		});
 	}
 
-<<<<<<< Updated upstream
-    this._authService.resetPassword(formData).subscribe({
-      next: (resetPasswordResponse) => {
-        console.log('Password Reset Successful!', resetPasswordResponse);
-        this._router.navigate(['/']);
-      },
-      error: (error: Error) => {
-        console.log('Password Reset Failed!', error);
-      },
-    });
-  }
-=======
 	onSubmit() {
 		if (this.resetPasswordForm.invalid) return;
 
@@ -61,5 +49,4 @@ export class ResetPasswordComponent {
 			},
 		});
 	}
->>>>>>> Stashed changes
 }
