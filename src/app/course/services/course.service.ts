@@ -1,47 +1,51 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ExploreCourseInDetailResponseDTO, ExploreCoursesResponseDTO } from 'src/app/core';
+import {
+  ExploreCourseInDetailResponseDTO,
+  ExploreCoursesResponseDTO,
+} from 'src/app/core';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root',
 })
 export class CourseService {
-	private _courseApiUrl = `${environment.apiUrl}/main/course`;
+  private _courseApiUrl = `${environment.apiUrl}/main/course`;
 
-	constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) {}
 
-	exploreCourses(
-		searchString: string | null,
-		categories: string[]
-	): Observable<ExploreCoursesResponseDTO> {
-		let params = new HttpParams();
+  exploreCourses(
+    searchString: string | null,
+    categories: string[]
+  ): Observable<ExploreCoursesResponseDTO[]> {
+    let params = new HttpParams();
 
-		if (searchString) {
-			params = params.set('search', searchString);
-		}
+    if (searchString) {
+      params = params.set('searchString', searchString);
+    }
 
-		if (categories.length > 0) {
-			params = params.set('categories', categories.join(','));
-		}
+    if (categories.length > 0) {
+      categories.forEach((category) => {
+        params = params.append('categories', category);
+      });
+    }
 
-		return this._httpClient.get<ExploreCoursesResponseDTO>(
-			`${this._courseApiUrl}/explore`,
-			{ params }
-		);
-	}
+    return this._httpClient.get<ExploreCoursesResponseDTO[]>(
+      `${this._courseApiUrl}/explore`,
+      { params }
+    );
+  }
 
-	exploreCourseInDetail(courseId: string): Observable<ExploreCourseInDetailResponseDTO> {
-		return this._httpClient.get<ExploreCoursesResponseDTO>(
-			`${this._courseApiUrl}/explore/${courseId}`
-		);
-	}
+  exploreCourseInDetail(
+    courseId: string
+  ): Observable<ExploreCourseInDetailResponseDTO> {
+    return this._httpClient.get<ExploreCoursesResponseDTO>(
+      `${this._courseApiUrl}/explore/${courseId}`
+    );
+  }
 
-	getCourseCategories(): Observable<string[]> {
-		return this._httpClient.get<string[]>(
-			`${this._courseApiUrl}/category`
-		);
-	}
+  getCourseCategories(): Observable<string[]> {
+    return this._httpClient.get<string[]>(`${this._courseApiUrl}/category`);
+  }
 }

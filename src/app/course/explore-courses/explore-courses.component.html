@@ -44,63 +44,76 @@
         <p class="mb-1">Filter by Category</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-8">
-        <input class="filter-container__search-bar" type="search" />
+    <form>
+      <div class="row">
+        <div class="col-8">
+          <input
+            class="filter-container__search-bar"
+            type="search"
+            [(ngModel)]="searchString"
+            (ngModelChange)="exploreCourses(searchString, selectedCategories)"
+            name="searchString"
+          />
+        </div>
+        <div class="col-4">
+          <ng-multiselect-dropdown
+            [placeholder]="'Select Categories'"
+            [settings]="dropdownSettings"
+            [data]="categories"
+            [(ngModel)]="selectedItems"
+            (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)"
+            name="categories"
+            (ngModelChange)="exploreCourses(searchString, selectedCategories)"
+          >
+          </ng-multiselect-dropdown>
+        </div>
       </div>
-      <div class="col-4">
-        <select
-          class="form-select filter-container__select"
-          aria-label="Default select example"
-        >
-          <option *ngFor="let category of categories" [value]="category">
-            {{ category }}
-          </option>
-        </select>
-      </div>
-    </div>
+    </form>
   </div>
 
   <div class="row mt-4">
-    <div *ngFor="let course of courses" class="col-4">
-      <div
-        class="course-card"
-        [routerLink]="['./course-details', course.id]"
-      >
-        <div class="course-card__thumbnail-container">
-          <img class="course-card__thumbnail" [src]="course.image" alt="" />
-          <div class="course-card__duration">
-            <i class="bi bi-clock"></i>
-            <div>{{ course.totalDuration | formatTime }}</div>
-          </div>
-        </div>
-        <div class="course-card__body">
-          <p class="course-card__category">{{ course.category }}</p>
-          <p class="course-card__title">{{ course.title }}</p>
-          <p class="course-card__description mb-5">
-            {{ course.description }}
-          </p>
-
-          <div class="d-flex align-items-center mb-4">
-            <img
-              class="course-card__instructor-profilepic"
-              [src]="course.creators[0].profilePicture"
-              alt=""
-            />
-            <div>
-              <p class="course-card__instructor-name">
-                {{ course.creators[0].firstName }}
-                {{ course.creators[0].lastName }}
-              </p>
-              <p class="course-card__instructor-designation">
-                {{ course.creators[0].designation }}
-              </p>
+    <div *ngIf="courses && courses.length > 0; else noCourses">
+      <div *ngFor="let course of courses" class="col-4">
+        <div class="course-card" [routerLink]="['./course-details', course.id]">
+          <div class="course-card__thumbnail-container">
+            <img class="course-card__thumbnail" [src]="course.image" alt="" />
+            <div class="course-card__duration">
+              <i class="bi bi-clock"></i>
+              <div>{{ course.totalDuration | formatTime }}</div>
             </div>
-            <p class="course-card__price">$ {{ course.price.value }}</p>
           </div>
-          <button class="course-card__enroll-btn">Enroll Now</button>
+          <div class="course-card__body">
+            <p class="course-card__category">{{ course.category }}</p>
+            <p class="course-card__title">{{ course.title }}</p>
+            <p class="course-card__description mb-5">
+              {{ course.description }}
+            </p>
+
+            <div class="d-flex align-items-center mb-4">
+              <img
+                class="course-card__instructor-profilepic"
+                [src]="course.creators[0].profilePicture"
+                alt=""
+              />
+              <div>
+                <p class="course-card__instructor-name">
+                  {{ course.creators[0].firstName }}
+                  {{ course.creators[0].lastName }}
+                </p>
+                <p class="course-card__instructor-designation">
+                  {{ course.creators[0].designation }}
+                </p>
+              </div>
+              <p class="course-card__price">$ {{ course.price.value }}</p>
+            </div>
+            <button class="course-card__enroll-btn">Enroll Now</button>
+          </div>
         </div>
       </div>
     </div>
+    <ng-template #noCourses>
+      <p>No available courses</p>
+    </ng-template>
   </div>
 </div>
