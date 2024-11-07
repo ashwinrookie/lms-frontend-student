@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AddCourseToCartResponseDTO } from 'src/app/core';
+import { GetCartItemsResponseDTO } from 'src/app/core/dto/response/get-cart-items.response.dto';
 import { environment } from 'src/environments/environment';
 
 
@@ -18,6 +19,12 @@ export class CartService {
 			{
 				courseId: courseId
 			}
+		);
+	}
+
+	getCartItems() {
+		return this._httpClient.get<GetCartItemsResponseDTO>(
+			`${this._cartApiUrl}`
 		);
 	}
 }
