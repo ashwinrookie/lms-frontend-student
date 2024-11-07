@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AddCourseToCartResponseDTO } from 'src/app/core';
+import { AddCourseToCartResponseDTO, CheckoutCartResponseDTO } from 'src/app/core';
 import { environment } from 'src/environments/environment';
 
 
@@ -17,6 +17,19 @@ export class CartService {
 			`${this._cartApiUrl}/cart/add-course`,
 			{
 				courseId: courseId
+			}
+		);
+	}
+
+	checkoutCart(
+		successUrl: string,
+		cancelUrl: string
+	) {
+		return this._httpClient.post<CheckoutCartResponseDTO>(
+			`${this._cartApiUrl}/cart/add-course`,
+			{
+				successUrl: successUrl,
+				cancelUrl: cancelUrl
 			}
 		);
 	}

@@ -1,5 +1,7 @@
 export * from "./add-course-to-cart.response.dto";
 
+export * from "./checkout-cart.response.dto";
+
 export * from "./explore-course-in-detail.response.dto";
 
 export * from "./explore-courses.response.dto";
