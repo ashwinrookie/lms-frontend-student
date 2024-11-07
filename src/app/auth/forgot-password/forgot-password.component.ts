@@ -26,18 +26,6 @@ export class ForgotPasswordComponent {
 
 		const formData = this.forgotPasswordForm.value;
 
-<<<<<<< Updated upstream
-    this._authService.forgotPassword(formData).subscribe({
-      next: (forgotPasswordResponse) => {
-        console.log('Email Sent', forgotPasswordResponse);
-        this._router.navigate(['/reset-password']);
-      },
-      error: (error: Error) => {
-        console.log('Email failed', error);
-      },
-    });
-  }
-=======
 		this._authService.forgotPassword(formData).subscribe({
 			next: (forgotPasswordResponse) => {
 				this._router.navigate(
@@ -51,5 +39,4 @@ export class ForgotPasswordComponent {
 			},
 		});
 	}
->>>>>>> Stashed changes
 }

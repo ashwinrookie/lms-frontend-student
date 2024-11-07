@@ -34,11 +34,7 @@ export class AppInitializerService {
 				});
 			});
 		} else {
-<<<<<<< Updated upstream
-			return Promise.resolve();
-=======
 			return Promise.resolve(true);
->>>>>>> Stashed changes
 		}
 	}
 }

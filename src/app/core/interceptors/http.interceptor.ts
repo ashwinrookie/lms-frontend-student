@@ -71,13 +71,8 @@ export class HttpInterceptorService implements HttpInterceptor {
 
 		return this._http.post(`${environment.apiUrl}/auth/token/refresh`, { refreshToken }).pipe(
 			switchMap((response: any) => {
-<<<<<<< Updated upstream
-				const newAccessToken = response.data.accessToken;
-				const newRefreshToken = response.data.refreshToken;
-=======
 				const newAccessToken = response.accessToken;
 				const newRefreshToken = response.refreshToken;
->>>>>>> Stashed changes
 
 				localStorage.setItem('authToken', newAccessToken);
 				localStorage.setItem('refreshToken', newRefreshToken);
