@@ -107,7 +107,12 @@
               </div>
               <p class="course-card__price">$ {{ course.price.value }}</p>
             </div>
-            <button class="course-card__enroll-btn">Enroll Now</button>
+            <button
+              (click)="addCourseToCart($event, course.id)"
+              class="course-card__enroll-btn"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>

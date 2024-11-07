@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExploreCoursesResponseDTO } from 'src/app/core';
 import { CourseService } from '../services/course.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -20,7 +20,8 @@ export class ExploreCoursesComponent {
 
   constructor(
     private _route: ActivatedRoute,
-    private _courseService: CourseService
+    private _courseService: CourseService,
+    private _router: Router
   ) {
     this._courses = this._route.snapshot.data[0];
     this._categories = this._route.snapshot.data[1];
@@ -70,6 +71,23 @@ export class ExploreCoursesComponent {
       },
       error: (error) => {
         console.log('Error in exploring courses ::', error);
+      },
+    });
+  }
+
+  addCourseToCart(event: Event, courseId: string) {
+    event.stopPropagation();
+    console.log('clicker');
+
+    this._courseService.addCourseToCart(courseId).subscribe({
+      next: (res) => {
+        console.log('RES', res);
+        this._router.navigate(['./cart/shopping-cart'], {
+          relativeTo: this._route,
+        });
+      },
+      error: (error: Error) => {
+        console.log(error);
       },
     });
   }
