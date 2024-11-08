@@ -2,29 +2,33 @@
   <div class="page-title">Shopping Cart</div>
   <div class="row">
     <div class="col-9">
-      <p class="cart-items-no">1 course in cart</p>
+      <p class="cart-items-no">{{ cart.courses.length }} course in cart</p>
       <hr />
-      <div class="course-details">
-        <img
-          class="course-details__thumbnail"
-          src="./../../../assets/dummy-course.svg"
-          alt=""
-        />
+
+      <div *ngFor="let course of cart.courses" class="course-details">
+        <img class="course-details__thumbnail" [src]="course.image" alt="" />
         <div>
-          <p class="course-details__name">
-            Introduction to Artificial Intelligence with Python
+          <p class="course-details__name">{{ course.title }}</p>
+          <p class="course-details__instructor">By {{ course.creators[0] }}</p>
+          <p class="course-details__duration">
+            {{ course.totalDuration }} total hours |
+            {{ course.totalLecturesCount }} lectures
           </p>
-          <p class="course-details__instructor">By David J Malan</p>
-          <p class="course-details__duration">52 total hours | 23 lectures</p>
         </div>
         <button class="course-details__remove-btn">Remove</button>
-        <p class="course-details__price">CA$449.99</p>
+        <p class="course-details__price">CA${{ course.value }}</p>
       </div>
     </div>
     <div class="col-3 ps-5">
       <div class="subtotal-container">
         <p class="subtotal-container__title">Subtotal:</p>
-        <p class="subtotal-container__price">CA$449.99</p>
+        <p class="subtotal-container__price">CA$ {{ cart.totalValue }}</p>
+        <p class="subtotal-container__title">Tax:</p>
+        <p class="subtotal-container__price">CA$ {{ cart.tax }}</p>
+        <p class="subtotal-container__title mt-3">Total:</p>
+        <p class="subtotal-container__price-total">
+          CA$ {{ cart.totalValue + cart.tax }}
+        </p>
         <button class="subtotal-container__checkout-btn">Checkout</button>
       </div>
     </div>
