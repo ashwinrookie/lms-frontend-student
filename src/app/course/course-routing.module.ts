@@ -7,6 +7,7 @@ import { CourseComponent } from './course.component';
 import { exploreCoursesResolver } from './resolvers/explore-courses.resolver';
 import { exploreCourseInDetailResolver } from './resolvers/explore-course-in-detail.resolver';
 import { getCourseCategoriesResolver } from './resolvers/get-course-categories.resolver';
+import { getStudentProfileResolver } from '../core';
 
 const routes: Routes = [
   {
@@ -17,12 +18,16 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: ExploreCoursesComponent,
-        resolve: [exploreCoursesResolver(), getCourseCategoriesResolver()],
+        resolve: [
+          exploreCoursesResolver(),
+          getCourseCategoriesResolver(),
+          getStudentProfileResolver(),
+        ],
       },
       {
         path: 'course-details/:id',
         component: CourseDetailsComponent,
-        resolve: [exploreCourseInDetailResolver()],
+        resolve: [exploreCourseInDetailResolver(), getStudentProfileResolver()],
       },
       { path: 'course-video-player', component: CourseVideoPlayerComponent },
     ],

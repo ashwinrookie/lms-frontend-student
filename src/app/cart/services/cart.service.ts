@@ -14,7 +14,7 @@ export class CartService {
 
   addCourseToCart(courseId: string) {
     return this._httpClient.post<AddCourseToCartResponseDTO>(
-      `${this._cartApiUrl}/cart/add-course`,
+      `${this._cartApiUrl}/add-course`,
       {
         courseId: courseId,
       }
