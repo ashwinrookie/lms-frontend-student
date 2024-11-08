@@ -29,8 +29,8 @@ export class CartService {
   }
 
   removeCourseFromCart(courseId: string) {
-    return this._httpClient.post<RemoveCourseFromCartResponseDTO>(
-      `${this._cartApiUrl}/cart/remove-course`,
+    return this._httpClient.post<RemoveCourseFromCartResponseDTO | null>(
+      `${this._cartApiUrl}/remove-course`,
       {
         courseId: courseId,
       }
