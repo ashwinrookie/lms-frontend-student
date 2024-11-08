@@ -39,4 +39,13 @@ export class ShoppingCartComponent implements OnInit {
       },
     });
   }
+
+  clearCart() {
+    this._cartService.clearCartItems().subscribe({
+      next: (clearCartResponse) => {
+        this._cart = clearCartResponse;
+      },
+      error: (error: Error) => {},
+    });
+  }
 }

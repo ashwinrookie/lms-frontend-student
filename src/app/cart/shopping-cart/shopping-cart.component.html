@@ -2,7 +2,16 @@
   <div class="page-title">Shopping Cart</div>
   <div class="row">
     <div class="col-9">
-      <p class="cart-items-no">{{ cart?.courses?.length }} course in cart</p>
+      <div class="w-100 d-flex">
+        <p class="cart-items-no">{{ cart?.courses?.length }} course in cart</p>
+        <button
+          *ngIf="cart?.courses?.length > 0"
+          class="clear-cart-btn"
+          (click)="clearCart()"
+        >
+          Clear Cart
+        </button>
+      </div>
       <hr />
 
       <div *ngIf="cart?.courses?.length > 0; else emptyCart">

@@ -36,4 +36,11 @@ export class CartService {
       }
     );
   }
+
+  clearCartItems() {
+    return this._httpClient.post<null>(
+      `${this._cartApiUrl}/clear-all-courses`,
+      {}
+    );
+  }
 }
