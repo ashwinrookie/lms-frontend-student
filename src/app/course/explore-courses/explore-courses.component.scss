@@ -122,11 +122,13 @@
   margin-left: auto;
 }
 .filter-container__search-bar {
+  padding-left: 1rem;
   width: 100%;
   height: 100%;
   border: 1px solid rgb(255, 212, 148);
   background-color: rgb(255, 250, 243);
   border-radius: 5px;
+  outline: none;
 }
 .filter-container__select {
   border: 1px solid rgb(255, 212, 148);
