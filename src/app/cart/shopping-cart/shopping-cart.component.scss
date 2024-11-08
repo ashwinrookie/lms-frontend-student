@@ -48,9 +48,14 @@
 .subtotal-container__title {
   color: rgb(104, 104, 104);
   font-weight: 700;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 .subtotal-container__price {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.subtotal-container__price-total {
   font-size: 32px;
   font-weight: 600;
 }
