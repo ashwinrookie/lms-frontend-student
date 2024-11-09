@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { catchError, filter, first, switchMap, throwError, map } from 'rxjs';
+import { catchError, filter, first, switchMap, throwError, map, of } from 'rxjs';
 import { 
 	getStudentProfile, 
 	removeStudentProfile, 
@@ -10,8 +10,10 @@ import {
 	Student 
 } from 'src/app/states';
 
-export function getStudentProfileResolver(): ResolveFn<Student> {
+export function getStudentProfileResolver(): ResolveFn<Student | null> {
 	return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+		if(!localStorage.getItem("authToken")) return of(null);
+
 		const store = inject(Store);
 
 		store.dispatch(removeStudentProfile());

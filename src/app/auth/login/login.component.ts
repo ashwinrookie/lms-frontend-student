@@ -34,7 +34,7 @@ export class LoginComponent {
 				localStorage.setItem("authToken", signinresponse.accessToken);
 				localStorage.setItem("refreshToken", signinresponse.refreshToken);
 
-				this._router.navigate(['/course/explore-courses']);
+				this._router.navigate(['/']);
 			},
 			error: (error: Error) => {
 				this.showError(error.message);

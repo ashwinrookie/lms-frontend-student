@@ -3,12 +3,23 @@
 /* Importing Bootstrap SCSS file. */
 @import "bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 html,
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh; // Ensure body is also constrained to the viewport height
   font-family: "Poppins", sans-serif;
+}
+
+.multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+  max-width: none !important;
+  background: #ff7d00 !important;
+  border: none !important;
+}
+.multiselect-dropdown .dropdown-btn {
+  border: 1px solid rgb(255, 212, 148) !important;
+  background-color: rgb(255, 250, 243) !important;
 }
 
 // .row {

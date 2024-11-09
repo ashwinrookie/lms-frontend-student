@@ -10,7 +10,8 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from '../shared/components/header/header.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipeModule } from '../core/pipes/pipe.module';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     CourseComponent,
@@ -25,6 +26,9 @@ import { PipeModule } from '../core/pipes/pipe.module';
     HeaderComponent,
     NgbDropdownModule,
     PipeModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
 })
 export class CourseModule {}
