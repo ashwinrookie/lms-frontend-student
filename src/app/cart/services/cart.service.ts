@@ -29,6 +29,15 @@ export class CartService {
     return this._httpClient.get<GetCartItemsResponseDTO>(`${this._cartApiUrl}`);
   }
 
+  checkoutCart(successUrl: string, cancelUrl: string) {
+    return this._httpClient.post<CheckoutCartResponseDTO>(
+      `${this._cartApiUrl}/checkout`,
+      {
+        successUrl: successUrl,
+        cancelUrl: cancelUrl,
+      }
+    );
+  }
   removeCourseFromCart(courseId: string) {
     return this._httpClient.post<RemoveCourseFromCartResponseDTO | null>(
       `${this._cartApiUrl}/remove-course`,
@@ -42,16 +51,6 @@ export class CartService {
     return this._httpClient.post<null>(
       `${this._cartApiUrl}/clear-all-courses`,
       {}
-    );
-  }
-
-  checkoutCart(successUrl: string, cancelUrl: string) {
-    return this._httpClient.post<CheckoutCartResponseDTO>(
-      `${this._cartApiUrl}/checkout`,
-      {
-        successUrl: successUrl,
-        cancelUrl: cancelUrl,
-      }
     );
   }
 }
