@@ -5,13 +5,13 @@ import { getStudentProfileResolver } from './core';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
-    path: 'course',
     loadChildren: () =>
       import('./course/course.module').then((m) => m.CourseModule),
     resolve: [getStudentProfileResolver()],
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'cart',
