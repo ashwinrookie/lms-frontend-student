@@ -10,7 +10,9 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 })
 export class ShoppingCartComponent implements OnInit {
   private _cart: any | null;
-  private stripePromise = loadStripe('YOUR_PUBLIC_STRIPE_KEY');
+  private stripePromise = loadStripe(
+    'pk_test_51LmW5bLT9AmL82bcPXVcFYl7rwsfIPjbPcpP84kvdMdewABu3gLwxpZbebGpAjds3wXVKALx82qNynyFEssuUtmT00PQY41vio'
+  );
 
   constructor(
     private _route: ActivatedRoute,

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentProfileComponent } from '../modals/student-profile/student-profile.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Student } from 'src/app/states';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
+  imports: [RouterModule],
 })
 export class HeaderComponent implements OnInit {
   private _student: Student;
