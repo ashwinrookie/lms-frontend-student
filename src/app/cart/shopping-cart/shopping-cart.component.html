@@ -50,7 +50,9 @@
         <p class="subtotal-container__price-total">
           CA$ {{ cart?.totalValue + cart?.tax }}
         </p>
-        <button class="subtotal-container__checkout-btn">Checkout</button>
+        <button (click)="checkout()" class="subtotal-container__checkout-btn">
+          Checkout
+        </button>
       </div>
     </div>
   </div>
