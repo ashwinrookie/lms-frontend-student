@@ -5,6 +5,7 @@ import { CartService } from 'src/app/cart/services/cart.service';
 import {
   ExploreCourseInDetailResponseDTO,
   ExploreCoursesResponseDTO,
+  GetMyLearningsResponseDTO,
 } from 'src/app/core';
 import { environment } from 'src/environments/environment';
 
@@ -55,5 +56,9 @@ export class CourseService {
 
   addCourseToCart(courseId: string) {
     return this._cartService.addCourseToCart(courseId);
+  }
+
+  getMyLearnings(): Observable<GetMyLearningsResponseDTO[]> {
+	return this._httpClient.get<GetMyLearningsResponseDTO[]>(`${this._courseApiUrl}/my-learnings`);
   }
 }

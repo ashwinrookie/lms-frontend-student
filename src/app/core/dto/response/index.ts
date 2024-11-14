@@ -15,3 +15,5 @@ export * from './signin-student.response.dto';
 export * from './google-singin-response.dto';
 
 export * from "./remove-course-from-cart.response.dto";
+
+export * from "./get-my-learnings.response.dto";
