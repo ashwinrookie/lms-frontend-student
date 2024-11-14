@@ -1,38 +1,40 @@
 <div class="container">
   <h3 class="mt-5">Welcome back Ashwin! 👋</h3>
-  <h2>Your Progress</h2>
-  <div class="progress-container">
-    <img
-      class="progress-container__thumbnail"
-      src="./../../../assets/dummy-course.svg"
-      alt=""
-    />
-    <div class="w-100 pe-5">
-      <p class="progress-container__course-name">
-        Fundamentals of Digital Marketing
-      </p>
-      <p class="progress-container__date-started">Started on 12/07/2023</p>
-      <p>
-        <ngb-progressbar
-          class="progress-container__progressbar"
-          [showValue]="true"
-          [value]="50"
-          [striped]="true"
-          [animated]="true"
-          height="1.3rem"
-        ></ngb-progressbar>
-      </p>
-      <p class="progress-container__modules-completed">20 of 30 Modules</p>
-      <div class="text-end">
-        <button
-          routerLink="/course/course-video-player"
-          class="progress-container__continue-btn"
-        >
-          Continue
-        </button>
+  <ng-container *ngIf="lastViewedCourse">
+    <h2>Your Progress</h2>
+    <div class="progress-container">
+      <img
+        class="progress-container__thumbnail"
+        src="./../../../assets/dummy-course.svg"
+        alt=""
+      />
+      <div class="w-100 pe-5">
+        <p class="progress-container__course-name">
+          {{ lastViewedCourse.title }}
+        </p>
+        <p class="progress-container__date-started">Started on 12/07/2023</p>
+        <p>
+          <ngb-progressbar
+            class="progress-container__progressbar"
+            [showValue]="true"
+            [value]="50"
+            [striped]="true"
+            [animated]="true"
+            height="1.3rem"
+          ></ngb-progressbar>
+        </p>
+        <p class="progress-container__modules-completed">20 of 30 Modules</p>
+        <div class="text-end">
+          <button
+            routerLink="/course-video-player"
+            class="progress-container__continue-btn"
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
   <h2>Explore Courses</h2>
 
   <div class="filter-container mt-3">
@@ -108,11 +110,20 @@
               <p class="course-card__price">$ {{ course.price.value }}</p>
             </div>
             <button
-              (click)="addCourseToCart($event, course.id)"
+              *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
+              routerLink="/course-video-player"
               class="course-card__enroll-btn"
             >
-              Add to Cart
+              Continue
             </button>
+            <ng-template #addToCartBtn>
+              <button
+                (click)="addCourseToCart($event, course.id)"
+                class="course-card__enroll-btn"
+              >
+                Add to Cart
+              </button>
+            </ng-template>
           </div>
         </div>
       </div>
