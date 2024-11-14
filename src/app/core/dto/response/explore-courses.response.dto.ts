@@ -55,12 +55,9 @@ interface ExploreCoursesResponseDTO {
   totalSectionsCount: number;
   totalLecturesCount: number;
   totalStudents: number;
+  isStudentEnrolledForCourse: boolean;
 }
 
 export {
-  CourseLanguages,
-  CourseSubtitles,
-  CoursePriceCurrencies,
-  CourseStatuses,
   ExploreCoursesResponseDTO,
 };

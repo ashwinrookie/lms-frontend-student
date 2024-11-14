@@ -37,11 +37,20 @@
         </div>
 
         <button
-          (click)="addCourseToCart(course.id)"
+          *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
           class="course-details__enroll-btn"
+          routerLink="/course-video-player"
         >
-          Add to Cart
+          Continue Learning
         </button>
+        <ng-template #addToCartBtn>
+          <button
+            (click)="addCourseToCart(course.id)"
+            class="course-details__enroll-btn"
+          >
+            Add to Cart
+          </button>
+        </ng-template>
       </div>
     </div>
     <div class="col-12 col-md-6">
