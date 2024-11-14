@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExploreCoursesResponseDTO } from 'src/app/core';
+import {
+  ExploreCoursesResponseDTO,
+  GetLastViewedCourseResponseDTO,
+} from 'src/app/core';
 import { CourseService } from '../services/course.service';
-import { FormControl, FormGroup } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
@@ -17,6 +19,7 @@ export class ExploreCoursesComponent {
   dropdownSettings: IDropdownSettings = {};
   private _courses: ExploreCoursesResponseDTO[];
   private _categories: string[];
+  private _lastViewedCourse: GetLastViewedCourseResponseDTO | null;
 
   constructor(
     private _route: ActivatedRoute,
@@ -25,6 +28,7 @@ export class ExploreCoursesComponent {
   ) {
     this._courses = this._route.snapshot.data[0];
     this._categories = this._route.snapshot.data[1];
+    this._lastViewedCourse = this._route.snapshot.data[2];
 
     this.selectedItems = [];
 
@@ -39,7 +43,12 @@ export class ExploreCoursesComponent {
       enableCheckAll: false,
     };
 
-    console.log('courses ::', this._courses, this._categories);
+    console.log(
+      'courses :: categories :: lastViewedCourse ::',
+      this._courses,
+      this._categories,
+      this._lastViewedCourse
+    );
   }
 
   onItemSelect(item: any) {
@@ -59,6 +68,9 @@ export class ExploreCoursesComponent {
 
   get selectedCategories() {
     return this.selectedItems;
+  }
+  get lastViewedCourse() {
+    return this._lastViewedCourse;
   }
 
   exploreCourses(searchString: string, categories: string[]) {

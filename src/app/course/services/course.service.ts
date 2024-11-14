@@ -6,6 +6,7 @@ import {
   ExploreCourseInDetailResponseDTO,
   ExploreCoursesResponseDTO,
   GetMyLearningsResponseDTO,
+  GetLastViewedCourseResponseDTO,
 } from 'src/app/core';
 import { environment } from 'src/environments/environment';
 
@@ -59,6 +60,14 @@ export class CourseService {
   }
 
   getMyLearnings(): Observable<GetMyLearningsResponseDTO[]> {
-	return this._httpClient.get<GetMyLearningsResponseDTO[]>(`${this._courseApiUrl}/my-learnings`);
+    return this._httpClient.get<GetMyLearningsResponseDTO[]>(
+      `${this._courseApiUrl}/my-learnings`
+    );
+  }
+
+  getLastViewedCourse(): Observable<GetLastViewedCourseResponseDTO | null> {
+    return this._httpClient.get<GetLastViewedCourseResponseDTO | null>(
+      `${this._courseApiUrl}/last-viewed-course`
+    );
   }
 }

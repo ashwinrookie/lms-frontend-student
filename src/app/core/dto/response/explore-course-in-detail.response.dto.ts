@@ -1,9 +1,5 @@
-import {
-  CourseLanguages,
-  CoursePriceCurrencies,
-  CourseStatuses,
-  CourseSubtitles,
-} from './explore-courses.response.dto';
+import { CourseLanguages, CoursePriceCurrencies, CourseStatuses, CourseSubtitles } from "../../types";
+
 
 interface ExploreCourseInDetailCreatorResponseDTO {
   id: string;
@@ -55,12 +51,9 @@ interface ExploreCourseInDetailResponseDTO {
   totalSectionsCount: number;
   totalLecturesCount: number;
   totalStudents: number;
+  isStudentEnrolledForCourse: boolean;
 }
 
 export {
-  CourseLanguages,
-  CourseSubtitles,
-  CoursePriceCurrencies,
-  CourseStatuses,
   ExploreCourseInDetailResponseDTO,
 };
