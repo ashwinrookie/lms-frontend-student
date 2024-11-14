@@ -1,94 +1,97 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExploreCoursesResponseDTO } from 'src/app/core';
+import { ExploreCoursesResponseDTO, GetLastViewedCourseResponseDTO } from 'src/app/core';
 import { CourseService } from '../services/course.service';
-import { FormControl, FormGroup } from '@angular/forms';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
+
 @Component({
-  selector: 'app-explore-courses',
-  templateUrl: './explore-courses.component.html',
-  styleUrls: ['./explore-courses.component.scss'],
+	selector: 'app-explore-courses',
+	templateUrl: './explore-courses.component.html',
+	styleUrls: ['./explore-courses.component.scss'],
 })
 export class ExploreCoursesComponent {
-  searchString = '';
-  dropdownList = [];
-  selectedItems: string[] = [];
-  dropdownSettings: IDropdownSettings = {};
-  private _courses: ExploreCoursesResponseDTO[];
-  private _categories: string[];
+	searchString = '';
+	dropdownList = [];
+	selectedItems: string[] = [];
+	dropdownSettings: IDropdownSettings = {};
+	private _courses: ExploreCoursesResponseDTO[];
+	private _categories: string[];
+	private _lastViewedCourse: GetLastViewedCourseResponseDTO | null;
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _courseService: CourseService,
-    private _router: Router
-  ) {
-    this._courses = this._route.snapshot.data[0];
-    this._categories = this._route.snapshot.data[1];
 
-    this.selectedItems = [];
+	constructor(
+		private _route: ActivatedRoute,
+		private _courseService: CourseService,
+		private _router: Router
+	) {
+		this._courses = this._route.snapshot.data[0];
+		this._categories = this._route.snapshot.data[1];
+		this._lastViewedCourse = this._route.snapshot.data[2];
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: false,
-      enableCheckAll: false,
-    };
+		this.selectedItems = [];
 
-    console.log('courses ::', this._courses, this._categories);
-  }
+		this.dropdownSettings = {
+			singleSelection: false,
+			idField: 'item_id',
+			textField: 'item_text',
+			selectAllText: 'Select All',
+			unSelectAllText: 'UnSelect All',
+			itemsShowLimit: 3,
+			allowSearchFilter: false,
+			enableCheckAll: false,
+		};
 
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
+		console.log('courses :: categories :: lastViewedCourse ::', this._courses, this._categories, this._lastViewedCourse);
+	}
 
-  get categories() {
-    return this._categories;
-  }
+	onItemSelect(item: any) {
+		console.log(item);
+	}
+	onSelectAll(items: any) {
+		console.log(items);
+	}
 
-  get courses() {
-    return this._courses;
-  }
+	get categories() {
+		return this._categories;
+	}
 
-  get selectedCategories() {
-    return this.selectedItems;
-  }
+	get courses() {
+		return this._courses;
+	}
 
-  exploreCourses(searchString: string, categories: string[]) {
-    console.log('searchString ::', searchString, 'categories ::', categories);
+	get selectedCategories() {
+		return this.selectedItems;
+	}
 
-    this._courseService.exploreCourses(searchString, categories).subscribe({
-      next: (updatedCourses) => {
-        console.log('courses ::', updatedCourses);
-        this._courses = updatedCourses;
-      },
-      error: (error) => {
-        console.log('Error in exploring courses ::', error);
-      },
-    });
-  }
+	exploreCourses(searchString: string, categories: string[]) {
+		console.log('searchString ::', searchString, 'categories ::', categories);
 
-  addCourseToCart(event: Event, courseId: string) {
-    event.stopPropagation();
-    console.log('clicker');
+		this._courseService.exploreCourses(searchString, categories).subscribe({
+			next: (updatedCourses) => {
+				console.log('courses ::', updatedCourses);
+				this._courses = updatedCourses;
+			},
+			error: (error) => {
+				console.log('Error in exploring courses ::', error);
+			},
+		});
+	}
 
-    this._courseService.addCourseToCart(courseId).subscribe({
-      next: (res) => {
-        console.log('RES', res);
-        this._router.navigate(['./cart/shopping-cart'], {
-          relativeTo: this._route,
-        });
-      },
-      error: (error: Error) => {
-        console.log(error);
-      },
-    });
-  }
+	addCourseToCart(event: Event, courseId: string) {
+		event.stopPropagation();
+		console.log('clicker');
+
+		this._courseService.addCourseToCart(courseId).subscribe({
+			next: (res) => {
+				console.log('RES', res);
+				this._router.navigate(['./cart/shopping-cart'], {
+					relativeTo: this._route,
+				});
+			},
+			error: (error: Error) => {
+				console.log(error);
+			},
+		});
+	}
 }

@@ -1,4 +1,4 @@
-import { CoursePriceCurrencies } from './explore-courses.response.dto';
+import { CoursePriceCurrencies } from "../../types";
 
 interface GetCartItemsCourseResponseDTO {
   id: string;
