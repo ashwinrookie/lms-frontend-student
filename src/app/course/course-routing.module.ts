@@ -32,7 +32,10 @@ const routes: Routes = [
         component: CourseDetailsComponent,
         resolve: [exploreCourseInDetailResolver(), getStudentProfileResolver()],
       },
-      { path: 'course-video-player', component: CourseVideoPlayerComponent },
+      {
+        path: 'course-video-player/:id',
+        component: CourseVideoPlayerComponent,
+      },
       {
         path: 'my-learnings',
         component: MyLearningComponent,
