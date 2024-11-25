@@ -20,6 +20,8 @@ import {
   studentReducer,
 } from './states';
 import { environment } from 'src/environments/environment';
+import { EditStudentProfileComponent } from './shared/components/modals/edit-student-profile/edit-student-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function appInitializerFactory(
   appInitializerService: AppInitializerService
@@ -28,7 +30,7 @@ export function appInitializerFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, EditStudentProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,6 +45,7 @@ export function appInitializerFactory(
       maxAge: 25,
       logOnly: environment.production,
     }),
+    ReactiveFormsModule,
   ],
   providers: [
     AuthService,

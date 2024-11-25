@@ -13,6 +13,7 @@ import {
   GoogleSignInRequestDTO,
   GoogleSignInResponseDTO,
 } from '../dto';
+import { EditStudentProfileRequestDTO } from '../dto/request/edit-student-profile.request.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,15 @@ export class AuthService {
   getStudentProfile(): Observable<GetStudentProfileResponseDTO> {
     return this._httpClient.get<GetStudentProfileResponseDTO>(
       `${this._authApiUrl}/student`
+    );
+  }
+
+  editStudentProfile(
+    editStudentRequestDTO: EditStudentProfileRequestDTO
+  ): Observable<EditStudentProfileRequestDTO> {
+    return this._httpClient.put<EditStudentProfileRequestDTO>(
+      `${this._authApiUrl}/student`,
+      editStudentRequestDTO
     );
   }
 
