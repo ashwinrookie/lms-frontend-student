@@ -21,3 +21,5 @@ export * from './get-my-learnings.response.dto';
 export * from './signin-student.response.dto';
 
 export * from './signup-student.response.dto';
+
+export * from "./view-my-course.response.dto";
