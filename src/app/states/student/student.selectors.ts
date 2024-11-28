@@ -20,11 +20,16 @@ const selectStudentProfileError = createSelector(
 	(state: StudentState) => state.error
 );
 
+const selectUpdateError = createSelector(
+	selectStudentState,
+	(state: StudentState) => state.error
+);
 
 
 export {
 	selectStudentState,
 	selectStudentProfile,
 	selectStudentProfileLoaded,
-	selectStudentProfileError
+	selectStudentProfileError,
+	selectUpdateError
 };
