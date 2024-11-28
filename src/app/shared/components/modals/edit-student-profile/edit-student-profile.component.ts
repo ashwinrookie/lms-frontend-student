@@ -1,54 +1,66 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/core';
-import { EditStudentProfileResponseDTO } from 'src/app/core/dto/response/edit-student-profile.response.dto';
-import { Student } from 'src/app/states';
+import { Store } from '@ngrx/store';
+import { selectStudentProfileError, Student, updateStudentProfile } from 'src/app/states';
+
+
 @Component({
-  selector: 'app-edit-student-profile',
-  templateUrl: './edit-student-profile.component.html',
-  styleUrls: ['./edit-student-profile.component.scss'],
+	selector: 'app-edit-student-profile',
+	templateUrl: './edit-student-profile.component.html',
+	styleUrls: ['./edit-student-profile.component.scss'],
 })
-export class EditStudentProfileComponent implements AfterViewInit {
-  @Input() student!: Student;
-  editStudentForm: FormGroup;
-  constructor(
-    private _activeModal: NgbActiveModal,
-    private _authService: AuthService
-  ) {
-    this.editStudentForm = new FormGroup({
-      firstName: new FormControl(null),
-      lastName: new FormControl(null),
-      email: new FormControl(null),
-    });
-  }
+export class EditStudentProfileComponent implements AfterViewInit, OnInit {
+	@Input() student: Student | null = null;
+	errorMessage: string | null = null;
+	editStudentForm: FormGroup;
 
-  ngAfterViewInit(): void {
-    this.editStudentForm = new FormGroup({
-      firstName: new FormControl(this.student?.firstName, [
-        Validators.required,
-      ]),
-      lastName: new FormControl(this.student?.lastName, [Validators.required]),
-      email: new FormControl(this.student?.email, [Validators.required]),
-    });
-  }
+	constructor(
+		private _activeModal: NgbActiveModal,
+		private _store: Store
+	) {
+		this.editStudentForm = new FormGroup({
+			firstName: new FormControl(null),
+			lastName: new FormControl(null),
+			email: new FormControl(null),
+			profilePicture: new FormControl(null)
+		});
+	}
 
-  onSubmit() {
-    if (this.editStudentForm.invalid) return;
+	ngOnInit(): void {
+		this._store.select(selectStudentProfileError).subscribe((error) => {
+			if(!error) this.errorMessage = null;
+			else this.errorMessage = error.message;
+		});
+	}
 
-    const formData = this.editStudentForm.value;
-    console.log('formdata', formData);
-    this._authService.editStudentProfile(formData).subscribe({
-      next: (editStudentResponse) => {
-        console.log('editStudentResponse', editStudentResponse);
-      },
-      error: (error: Error) => {
-        console.log(error);
-      },
-    });
-  }
+	ngAfterViewInit(): void {
+		if (this.student) {
+			this.editStudentForm = new FormGroup({
+				firstName: new FormControl(this.student.firstName, [
+					Validators.required,
+				]),
+				lastName: new FormControl(this.student.lastName, [Validators.required]),
+				email: new FormControl(this.student.email, [Validators.required]),
+				profilePicture: new FormControl(this.student.profilePicture)
+			});
+		}
+	}
 
-  closeModal() {
-    this._activeModal.close();
-  }
+	onSubmit() {
+		if (this.editStudentForm.invalid) return;
+
+		const formData = this.editStudentForm.value;
+		console.log('formdata', formData);
+
+		this._store.dispatch(updateStudentProfile({ student: formData }));
+	}
+
+	closeModal() {
+		this._activeModal.close();
+	}
+
+	get profilePicture() {
+		return this.editStudentForm.get("profilePicture");
+	}
 }

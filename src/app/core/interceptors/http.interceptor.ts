@@ -104,7 +104,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
           this._router.navigate(['/']);
 
-          return throwError(() => new Error(refreshErrorMessage));
+          return new Observable<HttpEvent<unknown>>();
         })
       );
   }
