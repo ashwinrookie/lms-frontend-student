@@ -3,7 +3,10 @@ import {
 	getStudentProfile,
 	getStudentProfileFailure,
 	getStudentProfileSuccess,
-	removeStudentProfile
+	removeStudentProfile,
+	updateStudentProfile,
+	updateStudentProfileFailure,
+	updateStudentProfileSuccess
 } from './student.actions';
 import { initialStudentState } from './student.state';
 
@@ -18,6 +21,18 @@ const studentReducer = createReducer(
 		loaded: true
 	})),
 	on(getStudentProfileFailure, (state, { error }) => ({
+		...state,
+		error,
+		loaded: false
+	})),
+	on(updateStudentProfile, (state) => ({ ...state, loaded: false })),
+	on(updateStudentProfileSuccess, (state, { student }) => ({
+		...state,
+		student,
+		loaded: true,
+		error: null
+	})),
+	on(updateStudentProfileFailure, (state, { error }) => ({
 		...state,
 		error,
 		loaded: false

@@ -17,18 +17,18 @@
         <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li> -->
-        <li class="nav-item ms-auto">
+        <li *ngIf="student" class="nav-item ms-auto">
           <div [routerLink]="['/my-learnings']" class="nav-link">
             My Learning
           </div>
         </li>
 
-        <li class="nav-item ms-3">
+        <li *ngIf="student" class="nav-item ms-3">
           <div class="nav-link" [routerLink]="['/cart/shopping-cart']">
             <i class="bi bi-cart3"></i>
           </div>
         </li>
-        <li class="nav-item dropdown ms-3">
+        <li *ngIf="student" class="nav-item dropdown ms-3">
           <a
             class="nav-link"
             href="#"
@@ -42,10 +42,20 @@
             <li>
               <a class="dropdown-item" (click)="openModal()">View Profile</a>
             </li>
-            <li><a class="dropdown-item">Edit Profile</a></li>
+            <li>
+              <a class="dropdown-item" (click)="openEditProfile()"
+                >Edit Profile</a
+              >
+            </li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item">Change Password</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
+        </li>
+        <li *ngIf="!student" class="nav-item ms-auto">
+          <button class="login-btn" [routerLink]="['/auth/login']">
+            Login
+          </button>
         </li>
       </ul>
     </div>

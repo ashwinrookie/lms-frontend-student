@@ -1,0 +1,11 @@
+@import "./../../../_variables";
+
+.profile-picture-container__img {
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+}
+.submit-btn {
+  background-color: $primary-color;
+  color: white;
+}

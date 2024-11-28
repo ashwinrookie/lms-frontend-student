@@ -11,11 +11,29 @@ const getStudentProfileFailure = createAction(
 	props<{ error: Error }>()
 );
 
+const updateStudentProfile = createAction(
+	'[Student] Update Profile',
+	props<{ student: Student }>()
+);
+
+const updateStudentProfileSuccess = createAction(
+	'[Student] Update Profile Success',
+	props<{ student: Student }>()
+);
+
+const updateStudentProfileFailure = createAction(
+	'[Student] Update Profile Failure',
+	props<{ error: Error }>()
+);
+
 const removeStudentProfile = createAction('[Student] Remove Profile');
 
 export {
 	getStudentProfile,
 	getStudentProfileSuccess,
 	getStudentProfileFailure,
-	removeStudentProfile
+	removeStudentProfile,
+	updateStudentProfile,
+	updateStudentProfileSuccess,
+	updateStudentProfileFailure
 };
