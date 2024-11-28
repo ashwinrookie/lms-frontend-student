@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpContext, HttpContextToken } from '@angular/common/http';
 import {
   GetStudentProfileResponseDTO,
   SignupStudentRequestDTO,
@@ -15,6 +16,9 @@ import {
 } from '../dto';
 import { EditStudentProfileRequestDTO } from '../dto/request/edit-student-profile.request.dto';
 import { EditStudentProfileResponseDTO } from '../dto/response/edit-student-profile.response.dto';
+
+// Define a custom context token
+export const SKIP_LOADING = new HttpContextToken<boolean>(() => false);
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +39,10 @@ export class AuthService {
 
   getStudentProfile(): Observable<GetStudentProfileResponseDTO> {
     return this._httpClient.get<GetStudentProfileResponseDTO>(
-      `${this._authApiUrl}/student`
+      `${this._authApiUrl}/student`,
+      {
+        context: new HttpContext().set(SKIP_LOADING, true), // Pass the context
+      }
     );
   }
 

@@ -6,7 +6,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/core';
+import { AuthService, ToastService } from 'src/app/core';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,7 +19,8 @@ export class ResetPasswordComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _toastService: ToastService
   ) {
     this.resetPasswordForm = new FormGroup({
       email: new FormControl({ value: null, disabled: true }, [
@@ -51,7 +52,18 @@ export class ResetPasswordComponent {
       },
       error: (error: Error) => {
         console.log('Password Reset Failed!', error);
+        this.showError(error.message);
       },
     });
+  }
+  showError(error: string) {
+    console.log('Workingg');
+    this._toastService.show(error, {
+      classname: 'bg-danger text-light',
+      delay: 5000,
+    });
+  }
+  ngOnDestroy(): void {
+    this._toastService.clear();
   }
 }
