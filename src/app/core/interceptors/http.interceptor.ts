@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import {
   HttpRequest,
@@ -10,6 +9,7 @@ import {
   HttpResponse,
   HttpClient,
 } from '@angular/common/http';
+import { Store } from '@ngrx/store';
 import {
   catchError,
   map,
@@ -18,15 +18,19 @@ import {
   throwError,
   finalize,
 } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { getErrorMessage } from '../helpers';
 import { ErrorCodes } from '../errors';
+import { removeStudentProfile } from 'src/app/states';
 import { LoadingService } from '../services/loading.service';
 import { SKIP_LOADING } from '../services';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
   constructor(
     private _http: HttpClient,
+
     private _router: Router,
+    private _store: Store,
     private _loadingService: LoadingService
   ) {}
 
@@ -122,6 +126,8 @@ export class HttpInterceptorService implements HttpInterceptor {
 
           localStorage.removeItem('authToken');
           localStorage.removeItem('refreshToken');
+
+          this._store.dispatch(removeStudentProfile());
 
           this._router.navigate(['/']);
 
