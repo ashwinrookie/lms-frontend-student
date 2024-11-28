@@ -10,13 +10,25 @@ import {
   HttpResponse,
   HttpClient,
 } from '@angular/common/http';
-import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
+import {
+  catchError,
+  map,
+  Observable,
+  switchMap,
+  throwError,
+  finalize,
+} from 'rxjs';
 import { getErrorMessage } from '../helpers';
 import { ErrorCodes } from '../errors';
-
+import { LoadingService } from '../services/loading.service';
+import { SKIP_LOADING } from '../services';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(
+    private _http: HttpClient,
+    private _router: Router,
+    private _loadingService: LoadingService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -34,7 +46,13 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
         withCredentials: true,
       });
+    const skipLoading = request.context.get(SKIP_LOADING);
 
+    if (!skipLoading) {
+      this._loadingService.show();
+    } else {
+      console.log('Skipped Loading');
+    }
     return next.handle(clonedRequest).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse)
@@ -62,6 +80,9 @@ export class HttpInterceptorService implements HttpInterceptor {
         }
 
         return throwError(() => new Error(errorMessage));
+      }),
+      finalize(() => {
+        this._loadingService.hide(); // Stop loading indicator
       })
     );
   }

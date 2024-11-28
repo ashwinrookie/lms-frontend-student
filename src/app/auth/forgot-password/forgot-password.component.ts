@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/core';
+import { AuthService, ToastService } from 'src/app/core';
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,7 +13,8 @@ export class ForgotPasswordComponent {
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _toastService: ToastService
   ) {
     this.forgotPasswordForm = new FormGroup({
       email: new FormControl(null, [Validators.required]),
@@ -34,7 +35,17 @@ export class ForgotPasswordComponent {
       },
       error: (error: Error) => {
         console.log('Email failed', error);
+        this.showError(error.message);
       },
     });
+  }
+  showError(error: string) {
+    this._toastService.show(error, {
+      classname: 'bg-danger text-light',
+      delay: 5000,
+    });
+  }
+  ngOnDestroy(): void {
+    this._toastService.clear();
   }
 }

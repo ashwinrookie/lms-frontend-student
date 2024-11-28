@@ -20,6 +20,8 @@ import {
   studentReducer,
 } from './states';
 import { environment } from 'src/environments/environment';
+import { ToastContainerComponent } from './shared/components/toasts/toast-container/toast-container.component';
+import { LoadingComponent } from './shared/components/loader/loading/loading.component';
 
 export function appInitializerFactory(
   appInitializerService: AppInitializerService
@@ -28,7 +30,7 @@ export function appInitializerFactory(
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ToastContainerComponent, LoadingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
