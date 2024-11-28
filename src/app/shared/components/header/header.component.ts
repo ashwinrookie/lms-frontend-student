@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectStudentProfile, Student } from 'src/app/states';
+import { removeStudentProfile, selectStudentProfile, Student } from 'src/app/states';
 import { StudentProfileComponent } from '../modals/student-profile/student-profile.component';
 import { EditStudentProfileComponent } from '../modals/edit-student-profile/edit-student-profile.component';
 
@@ -15,12 +15,13 @@ import { EditStudentProfileComponent } from '../modals/edit-student-profile/edit
 	imports: [RouterModule, CommonModule],
 })
 export class HeaderComponent implements OnInit {
-	private _student: Student;
+	private _student: Student | null;
 
 	constructor(
 		private _modalService: NgbModal,
 		private _route: ActivatedRoute,
-		private _store: Store
+		private _store: Store,
+		private _router: Router
 	) {
 		this._student = this._route.snapshot.data[0];
 	}
@@ -29,9 +30,7 @@ export class HeaderComponent implements OnInit {
 		console.log('student ::', this.student);
 
 		this._store.select(selectStudentProfile).subscribe((student) => {
-			if (student) {
-				this._student = student;
-			}
+			this._student = student;
 		});
 	}
 
@@ -47,5 +46,14 @@ export class HeaderComponent implements OnInit {
 	openEditProfile() {
 		const modalRef = this._modalService.open(EditStudentProfileComponent);
 		modalRef.componentInstance.student = this._student;
+	}
+
+	logout() {
+		localStorage.removeItem('authToken');
+		localStorage.removeItem('refreshToken');
+
+		this._store.dispatch(removeStudentProfile());
+
+		this._router.navigate(['/']);
 	}
 }
