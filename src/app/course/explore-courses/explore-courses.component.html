@@ -111,7 +111,8 @@
             </div>
             <button
               *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
-              routerLink="/course-video-player"
+              [routerLink]="['/course-video-player', course.id]"
+              (click)="$event.stopPropagation()"
               class="course-card__enroll-btn"
             >
               Continue

@@ -28,8 +28,7 @@ export function getStudentProfileResolver(): ResolveFn<Student | null> {
     if (!localStorage.getItem('authToken')) return of(null);
 
     const store = inject(Store);
-    const loadingService = inject(LoadingService);
-    loadingService.show();
+
     store.dispatch(removeStudentProfile());
     store.dispatch(getStudentProfile());
 
@@ -48,16 +47,7 @@ export function getStudentProfileResolver(): ResolveFn<Student | null> {
           }),
           catchError((error) => throwError(() => error))
         )
-      ),
-      // Stop the loading indicator whether successful or error
-      catchError((error) => {
-        loadingService.hide();
-        return throwError(() => error);
-      }),
-      map((result) => {
-        loadingService.hide();
-        return result;
-      })
+      )
     );
   };
 }

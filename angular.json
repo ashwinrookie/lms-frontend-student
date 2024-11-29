@@ -30,7 +30,8 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/styles.scss"
+							"src/styles.scss",
+							"video.js/dist/video-js.css"
 						],
 						"scripts": []
 					},
@@ -99,7 +100,8 @@
 							"src/assets"
 						],
 						"styles": [
-							"src/styles.scss"
+							"src/styles.scss",
+							"video.js/dist/video-js.css"
 						],
 						"scripts": []
 					}

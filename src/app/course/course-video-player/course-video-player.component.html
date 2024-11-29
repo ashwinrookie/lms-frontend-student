@@ -1,57 +1,31 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-12 col-md-7">
-      <video style="width: 100%; border-radius: 10px" controls>
-        <source src="./../../../assets/dummyVideo.mp4" />
-      </video>
+      <app-video-player
+        [videoSrc]="selectedVideo"
+        [poster]="selectedThumbnail"
+      ></app-video-player>
     </div>
     <div class="col-12 col-md-5">
       <div class="lectures-section">
         <div class="lectures-section__title-section">
           <p>Lectures Section</p>
-          <p>8hrs 20 mins</p>
+          <p>{{ course.totalDuration | formatTime }}</p>
         </div>
         <div class="lectures-section__lectures-container">
-          <div class="lectures-container__single-lecture">
+          <div
+            *ngFor="let lecture of course.sections[0].lectures; let i = index"
+            class="lectures-container__single-lecture"
+          >
             <div>
-              <p class="single-lecture__lecture-count">1</p>
+              <p class="single-lecture__lecture-count">{{ i + 1 }}</p>
             </div>
             <div>
               <p class="single-lecture__lecture-duration">
-                <i class="bi bi-clock"></i> 03:34 mins
+                <i class="bi bi-clock"></i> {{ lecture.duration | formatTime }}
               </p>
               <p class="single-lecture__lecture-title">
-                What is digital marketing?
-              </p>
-            </div>
-            <i class="bi bi-play-circle single-lecture__play-icon"></i>
-          </div>
-
-          <div class="lectures-container__single-lecture">
-            <div>
-              <p class="single-lecture__lecture-count">1</p>
-            </div>
-            <div>
-              <p class="single-lecture__lecture-duration">
-                <i class="bi bi-clock"></i> 03:34 mins
-              </p>
-              <p class="single-lecture__lecture-title">
-                What is digital marketing?
-              </p>
-            </div>
-            <i class="bi bi-play-circle single-lecture__play-icon"></i>
-          </div>
-
-          <div class="lectures-container__single-lecture">
-            <div>
-              <p class="single-lecture__lecture-count">1</p>
-            </div>
-            <div>
-              <p class="single-lecture__lecture-duration">
-                <i class="bi bi-clock"></i> 03:34 mins
-              </p>
-              <p class="single-lecture__lecture-title">
-                What is digital marketing?
+                {{ lecture.title }}
               </p>
             </div>
             <i class="bi bi-play-circle single-lecture__play-icon"></i>
@@ -62,24 +36,24 @@
   </div>
   <div class="row">
     <div class="col-12 col-md-7">
-      <p class="course-title">Fundamentals of Digital Marketing</p>
+      <p class="course-title">{{ course.title }}</p>
       <p class="course-description">
-        Digital marketing is marketing through the internet for your business
-        needs to be visible. It doesn't stop there! People are more likely to
-        purchase from your business if you offer useful content. Hence blogging,
-        videos, and social media are all major branches within digital
-        marketing, and all of these can be turned into powerful marketing tools
-        for your business.
+        {{ course.description }}
       </p>
       <div class="instructor-container">
         <img
           class="instructor-container__img"
-          src="./../../../assets/dummy-instructor.svg"
+          [src]="course.creators[0].profilePicture"
           alt="Ins"
         />
         <div>
-          <p class="instructor-container__name">David J Malan</p>
-          <p class="instructor-container__designation">Harvard School</p>
+          <p class="instructor-container__name">
+            {{ course.creators[0].firstName }}
+            {{ course.creators[0].lastName }}
+          </p>
+          <p class="instructor-container__designation">
+            {{ course.creators[0].designation }}
+          </p>
         </div>
       </div>
     </div>
@@ -89,49 +63,24 @@
     <div class="col-12 col-md-7">
       <h3>Course Modules</h3>
       <div class="course-modules-container">
-        <div class="course-modules-container__module">
+        <div
+          *ngFor="let module of course.sections"
+          class="course-modules-container__module"
+        >
           <img
             class="course-module__thumbnail"
-            src="./../../../assets/dummy-course.svg"
+            [src]="module.lectures[0].thumbnail"
             alt=""
           />
           <div>
-            <p class="course-module__name">
-              Module 1: What is Digital Marketing?
+            <p class="course-module__name">Module 1: {{ module.title }}</p>
+            <p class="course-module__sections">
+              {{ module.lecturesCount }} lectures
             </p>
-            <p class="course-module__sections">3 sections</p>
           </div>
-          <p class="course-module__duration">20:23 mins</p>
-        </div>
-
-        <div class="course-modules-container__module">
-          <img
-            class="course-module__thumbnail"
-            src="./../../../assets/dummy-course.svg"
-            alt=""
-          />
-          <div>
-            <p class="course-module__name">
-              Module 1: What is Digital Marketing?
-            </p>
-            <p class="course-module__sections">3 sections</p>
-          </div>
-          <p class="course-module__duration">20:23 mins</p>
-        </div>
-
-        <div class="course-modules-container__module">
-          <img
-            class="course-module__thumbnail"
-            src="./../../../assets/dummy-course.svg"
-            alt=""
-          />
-          <div>
-            <p class="course-module__name">
-              Module 1: What is Digital Marketing?
-            </p>
-            <p class="course-module__sections">3 sections</p>
-          </div>
-          <p class="course-module__duration">20:23 mins</p>
+          <p class="course-module__duration">
+            {{ module.lecturesDuration | formatTime }}
+          </p>
         </div>
       </div>
     </div>
