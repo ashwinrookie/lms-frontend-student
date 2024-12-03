@@ -2,6 +2,7 @@
   <div class="row mt-5">
     <div class="col-12 col-md-7">
       <app-video-player
+        (timeUpdate)="onTimeUpdate($event)"
         [videoSrc]="selectedVideo"
         [poster]="selectedThumbnail"
       ></app-video-player>
