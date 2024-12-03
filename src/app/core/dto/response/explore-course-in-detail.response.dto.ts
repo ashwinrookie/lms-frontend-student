@@ -1,5 +1,9 @@
-import { CourseLanguages, CoursePriceCurrencies, CourseStatuses, CourseSubtitles } from "../../types";
-
+import {
+  CourseLanguages,
+  CoursePriceCurrencies,
+  CourseStatuses,
+  CourseSubtitles,
+} from '../../types';
 
 interface ExploreCourseInDetailCreatorResponseDTO {
   id: string;
@@ -54,6 +58,4 @@ interface ExploreCourseInDetailResponseDTO {
   isStudentEnrolledForCourse: boolean;
 }
 
-export {
-  ExploreCourseInDetailResponseDTO,
-};
+export { ExploreCourseInDetailResponseDTO };

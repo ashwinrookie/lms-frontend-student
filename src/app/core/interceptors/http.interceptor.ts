@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import {
   HttpRequest,
@@ -10,13 +9,30 @@ import {
   HttpResponse,
   HttpClient,
 } from '@angular/common/http';
-import { catchError, map, Observable, switchMap, throwError } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  catchError,
+  map,
+  Observable,
+  switchMap,
+  throwError,
+  finalize,
+} from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { getErrorMessage } from '../helpers';
 import { ErrorCodes } from '../errors';
-
+import { removeStudentProfile } from 'src/app/states';
+import { LoadingService } from '../services/loading.service';
+import { SKIP_LOADING } from '../services';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(private _http: HttpClient, private _router: Router) {}
+  constructor(
+    private _http: HttpClient,
+
+    private _router: Router,
+    private _store: Store,
+    private _loadingService: LoadingService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -34,7 +50,13 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
         withCredentials: true,
       });
+    const skipLoading = request.context.get(SKIP_LOADING);
 
+    if (!skipLoading) {
+      this._loadingService.show();
+    } else {
+      console.log('Skipped Loading');
+    }
     return next.handle(clonedRequest).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse)
@@ -62,6 +84,9 @@ export class HttpInterceptorService implements HttpInterceptor {
         }
 
         return throwError(() => new Error(errorMessage));
+      }),
+      finalize(() => {
+        this._loadingService.hide(); // Stop loading indicator
       })
     );
   }
@@ -102,9 +127,11 @@ export class HttpInterceptorService implements HttpInterceptor {
           localStorage.removeItem('authToken');
           localStorage.removeItem('refreshToken');
 
+          this._store.dispatch(removeStudentProfile());
+
           this._router.navigate(['/']);
 
-          return new Observable<HttpEvent<unknown>>();
+          return throwError(() => new Error(refreshErrorMessage));
         })
       );
   }
