@@ -5,29 +5,29 @@ import {
   CourseSubtitles,
 } from '../../types';
 
-interface GetLastViewedCoursePriceResponseDTO {
+interface ViewMyCoursePriceResponseDTO {
   currency: CoursePriceCurrencies;
   value: number;
 }
 
-interface GetLastViewedCourseCreatorResponseDTO {
+interface ViewMyCourseCreatorResponseDTO {
   firstName: string;
   lastName: string;
   profilePicture: string | null;
   designation: string | null;
 }
 
-interface GetLastViewedCourseRatingResponseDTO {
+interface ViewMyCourseRatingResponseDTO {
   value: number;
   totalCount: number;
 }
 
-interface GetLastViewedCourseSectionLectureSubtitleResponseDTO {
+interface ViewMyCourseSectionLectureSubtitleResponseDTO {
   language: CourseSubtitles;
   url: string;
 }
 
-interface GetLastViewedCourseSectionLectureResponseDTO {
+interface ViewMyCourseSectionLectureResponseDTO {
   id: string;
   title: string;
   description: string;
@@ -35,18 +35,19 @@ interface GetLastViewedCourseSectionLectureResponseDTO {
   thumbnail: string | null;
   order: number;
   watchDuration: number;
+  link: string;
 }
 
-interface GetLastViewedCourseSectionResponseDTO {
+interface ViewMyCourseSectionResponseDTO {
   id: string;
   title: string;
-  lectures: GetLastViewedCourseSectionLectureResponseDTO[];
+  lectures: ViewMyCourseSectionLectureResponseDTO[];
   lecturesCount: number;
   lecturesDuration: number;
   order: number;
 }
 
-interface GetLastViewedCourseLastViewedLectureResponseDTO {
+interface ViewMyCourseLastViewedLectureResponseDTO {
   id: string;
   title: string;
   description: string;
@@ -54,28 +55,29 @@ interface GetLastViewedCourseLastViewedLectureResponseDTO {
   thumbnail: string | null;
   order: number;
   watchDuration: number;
+  link: string;
 }
 
-interface GetLastViewedCourseResponseDTO {
+interface ViewMyCourseResponseDTO {
   id: string;
   status: CourseStatuses;
   title: string;
   description: string;
   category: string;
-  rating: GetLastViewedCourseRatingResponseDTO | null;
+  rating: ViewMyCourseRatingResponseDTO | null;
   totalStudents: number;
-  creators: GetLastViewedCourseCreatorResponseDTO[];
+  creators: ViewMyCourseCreatorResponseDTO[];
   lastUpdatedOn: Date;
   languages: CourseLanguages[];
   subtitles: CourseSubtitles[];
   materialsAndOffers: string[];
-  price: GetLastViewedCoursePriceResponseDTO;
+  price: ViewMyCoursePriceResponseDTO;
   image: string;
-  sections: GetLastViewedCourseSectionResponseDTO[];
+  sections: ViewMyCourseSectionResponseDTO[];
   totalSectionsCount: number;
   totalLecturesCount: number;
   totalDuration: number;
-  lastViewedLecture: GetLastViewedCourseLastViewedLectureResponseDTO | null;
+  lastViewedLecture: ViewMyCourseLastViewedLectureResponseDTO | null;
 }
 
-export { GetLastViewedCourseResponseDTO };
+export { ViewMyCourseResponseDTO };

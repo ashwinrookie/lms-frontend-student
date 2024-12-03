@@ -39,7 +39,7 @@
         <button
           *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
           class="course-details__enroll-btn"
-          routerLink="/course-video-player"
+          [routerLink]="['../../course-video-player', course.id]"
         >
           Continue Learning
         </button>

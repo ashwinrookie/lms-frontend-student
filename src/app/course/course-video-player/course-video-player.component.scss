@@ -70,6 +70,13 @@
   align-items: center;
   gap: 1rem;
 }
+.instructor-container__img {
+  margin-right: 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  object-fit: contain;
+}
 .instructor-container__name {
   margin-bottom: 0;
   font-weight: 500;

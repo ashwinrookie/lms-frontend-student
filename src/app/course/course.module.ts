@@ -13,6 +13,7 @@ import { PipeModule } from '../core/pipes/pipe.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MyLearningComponent } from './my-learning/my-learning.component';
+import { VideoPlayerComponent } from '../shared/components/video-player/video-player.component';
 @NgModule({
   declarations: [
     CourseComponent,
@@ -20,6 +21,7 @@ import { MyLearningComponent } from './my-learning/my-learning.component';
     CourseDetailsComponent,
     CourseVideoPlayerComponent,
     MyLearningComponent,
+    VideoPlayerComponent,
   ],
   imports: [
     CommonModule,

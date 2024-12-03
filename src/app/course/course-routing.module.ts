@@ -11,6 +11,7 @@ import { exploreCourseInDetailResolver } from './resolvers/explore-course-in-det
 import { getCourseCategoriesResolver } from './resolvers/get-course-categories.resolver';
 import { getMyLearningsResolver } from './resolvers/get-my-learnings.resolver';
 import { getLastViewedCourseResolver } from './resolvers/get-last-viewed-course.resolver';
+import { viewMyCourseResolver } from './resolvers/view-my-course.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       {
         path: 'course-video-player/:id',
         component: CourseVideoPlayerComponent,
+		resolve: [viewMyCourseResolver()]
       },
       {
         path: 'my-learnings',
