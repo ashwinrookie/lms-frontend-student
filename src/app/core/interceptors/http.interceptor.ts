@@ -8,6 +8,7 @@ import {
   HttpErrorResponse,
   HttpResponse,
   HttpClient,
+  HttpContextToken,
 } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import {
@@ -24,6 +25,9 @@ import { ErrorCodes } from '../errors';
 import { removeStudentProfile } from 'src/app/states';
 import { LoadingService } from '../services/loading.service';
 import { SKIP_LOADING } from '../services';
+
+export const SKIP_AUTH = new HttpContextToken<boolean>(() => false);
+
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
   constructor(
@@ -39,17 +43,20 @@ export class HttpInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('authToken');
-    let clonedRequest = request.clone({
-      withCredentials: true,
-    });
+    const skipAuth = request.context.get(SKIP_AUTH);
 
-    if (token)
-      clonedRequest = request.clone({
+    let clonedRequest = request.clone({ withCredentials: true });
+
+    // Add authorization header if not skipping auth
+    if (token && !skipAuth) {
+      clonedRequest = clonedRequest.clone({
         setHeaders: {
           authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       });
+    }
+
     const skipLoading = request.context.get(SKIP_LOADING);
 
     if (!skipLoading) {
@@ -57,10 +64,11 @@ export class HttpInterceptorService implements HttpInterceptor {
     } else {
       console.log('Skipped Loading');
     }
+
     return next.handle(clonedRequest).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse)
-          return event.clone({ body: event.body.data });
+          return event.clone({ body: event.body ? event.body.data : null });
 
         return event;
       }),
@@ -69,6 +77,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         let errorMessage: string = 'Something went wrong, please try again';
 
         if (
+          error &&
           error.error &&
           Array.isArray(error.error.errors) &&
           error.error.errors.length > 0

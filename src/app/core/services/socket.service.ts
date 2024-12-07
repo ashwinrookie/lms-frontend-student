@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { Observable } from 'rxjs';
 import { ToastService } from './toast.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,11 +11,11 @@ export class SocketService {
   constructor(private _toastService: ToastService) {}
   connect(authToken: string): void {
     this.socket = io('https://api.lms-staging.com/course', {
-      path: '/api/main/socket', // Handshake path
-      transports: ['websocket'], // Use WebSocket transport
-      auth: {
-        authorization: authToken, // Pass JWT token
-      },
+      path: '/api/main/socket',
+      transports: ['websocket'],
+	  query: {
+		authorization: `Bearer ${authToken}`
+	  }
     });
     this.socket.on('connect', () => {
       console.log('Socket connected:', this.socket.id);
@@ -37,6 +37,8 @@ export class SocketService {
       watchDuration,
     };
 
+	console.log("sendPlayedDuration ::", eventName, eventData);
+
     this.socket.emit(eventName, eventData, (error: any, response: any) => {
       if (error) {
         console.error(`Error in ${eventName}:`, error);
@@ -46,7 +48,6 @@ export class SocketService {
         });
       } else {
         console.log(`${eventName} successful:`, response);
-        // Response handling logic (response is null, but you can log or notify the success)
       }
     });
   }

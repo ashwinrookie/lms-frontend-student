@@ -119,3 +119,9 @@
   font-size: 22px;
   font-weight: 500;
 }
+
+@media screen and (max-width: 600px) {
+  .course-metrics-card {
+    margin-bottom: 2rem;
+  }
+}
