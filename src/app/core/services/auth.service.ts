@@ -16,6 +16,7 @@ import {
 } from '../dto';
 import { EditStudentProfileRequestDTO } from '../dto/request/edit-student-profile.request.dto';
 import { EditStudentProfileResponseDTO } from '../dto/response/edit-student-profile.response.dto';
+import { GetProfilePictureURLResponseDTO } from '../dto/response/get-profile-picture-url.response.dto';
 
 // Define a custom context token
 export const SKIP_LOADING = new HttpContextToken<boolean>(() => false);
@@ -91,8 +92,10 @@ export class AuthService {
     );
   }
 
-  getStudentProfilePictureLink(mimeType: string): Observable<string> {
-    return this._httpClient.post<string>(
+  getStudentProfilePictureLink(
+    mimeType: string
+  ): Observable<GetProfilePictureURLResponseDTO> {
+    return this._httpClient.post<GetProfilePictureURLResponseDTO>(
       `${this._authApiUrl}/student/upload-student-profile-picture`,
       {
         mimeType,

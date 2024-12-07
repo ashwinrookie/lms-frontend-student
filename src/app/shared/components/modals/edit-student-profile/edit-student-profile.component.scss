@@ -1,9 +1,22 @@
 @import "./../../../_variables";
-
+.profile-picture-container {
+  text-align: center;
+}
 .profile-picture-container__img {
   width: 150px;
   height: 150px;
   border-radius: 150px;
+  margin: auto;
+}
+.profile-picture-container__edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.profile-picture-container .bi {
+  font-size: 18px;
 }
 .submit-btn {
   background-color: $primary-color;

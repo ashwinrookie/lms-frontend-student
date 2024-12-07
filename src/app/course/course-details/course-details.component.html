@@ -1,6 +1,9 @@
 <div class="container">
   <div class="row mt-5 mb-5">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 order-md-2">
+      <img class="course-details__thumnail" [src]="course.image" alt="" />
+    </div>
+    <div class="col-12 col-md-6 order-md-1">
       <div class="course-details">
         <p class="course-details__title">
           {{ course.title }}
@@ -52,9 +55,6 @@
           </button>
         </ng-template>
       </div>
-    </div>
-    <div class="col-12 col-md-6">
-      <img class="course-details__thumnail" [src]="course.image" alt="" />
     </div>
   </div>
 
