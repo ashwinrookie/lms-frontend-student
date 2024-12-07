@@ -58,14 +58,12 @@ export class EditStudentProfileComponent implements AfterViewInit, OnInit {
       this.selectedFile = fileInput.files[0];
       const mimeType = this.selectedFile.type;
 
-      // Request AWS URL for upload
       this._authService
         .getStudentProfilePictureLink(mimeType)
         .subscribe((response) => {
           const awsData = response;
           const formData = new FormData();
 
-          // Append AWS required fields dynamically
           for (const key in awsData.fields) {
             if (awsData.fields.hasOwnProperty(key)) {
               formData.append(key, awsData.fields[key]);
@@ -76,30 +74,16 @@ export class EditStudentProfileComponent implements AfterViewInit, OnInit {
             formData.append('file', this.selectedFile);
           }
 
-          // Upload image to AWS
           this._authService
             .uploadStudentProfilePicture(awsData.url, formData)
             .subscribe({
               next: () => {
                 const uploadedImageUrl = `${awsData.url}/${awsData.fields['key']}`;
-                console.log('uploadedImageUrl ::', uploadedImageUrl);
                 this.editStudentForm.patchValue({
                   profilePicture: uploadedImageUrl,
                 });
               },
             });
-
-          // 	() => {
-          //   const uploadedImageUrl = `${awsData.url}/${awsData.fields['key']}`;
-          //   console.log("uploadedImageUrl ::", uploadedImageUrl);
-          //   this.editStudentForm.patchValue({
-          //     profilePicture: uploadedImageUrl,
-          //   });
-
-          // //   console.log("uploadedImageUrl ::", uploadedImageUrl, this.student);
-          // //   if(this.student)
-          // //   	this.student.profilePicture = uploadedImageUrl;
-          // });
         });
     }
   }
@@ -118,10 +102,6 @@ export class EditStudentProfileComponent implements AfterViewInit, OnInit {
   }
 
   get profilePicture() {
-    console.log(
-      "this.editStudentForm.get('profilePicture') ::",
-      this.editStudentForm.get('profilePicture')?.value
-    );
     return this.editStudentForm.get('profilePicture')?.value;
   }
 }
