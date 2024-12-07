@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpResponse,
-  HttpClient,
+	HttpRequest,
+	HttpHandler,
+	HttpEvent,
+	HttpInterceptor,
+	HttpErrorResponse,
+	HttpResponse,
+	HttpClient,
+	HttpContextToken,
 } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import {
-  catchError,
-  map,
-  Observable,
-  switchMap,
-  throwError,
-  finalize,
+	catchError,
+	map,
+	Observable,
+	switchMap,
+	throwError,
+	finalize,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { getErrorMessage } from '../helpers';
@@ -24,115 +25,122 @@ import { ErrorCodes } from '../errors';
 import { removeStudentProfile } from 'src/app/states';
 import { LoadingService } from '../services/loading.service';
 import { SKIP_LOADING } from '../services';
+
+export const SKIP_AUTH = new HttpContextToken<boolean>(() => false)
+
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  constructor(
-    private _http: HttpClient,
+	constructor(
+		private _http: HttpClient,
 
-    private _router: Router,
-    private _store: Store,
-    private _loadingService: LoadingService
-  ) {}
+		private _router: Router,
+		private _store: Store,
+		private _loadingService: LoadingService
+	) { }
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('authToken');
-    let clonedRequest = request.clone({
-      withCredentials: true,
-    });
+	intercept(
+		request: HttpRequest<unknown>,
+		next: HttpHandler
+	): Observable<HttpEvent<unknown>> {
+		const token = localStorage.getItem('authToken');
+		const skipAuth = request.context.get(SKIP_AUTH);
 
-    if (token)
-      clonedRequest = request.clone({
-        setHeaders: {
-          authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-    const skipLoading = request.context.get(SKIP_LOADING);
+		let clonedRequest = request.clone({ withCredentials: true });
 
-    if (!skipLoading) {
-      this._loadingService.show();
-    } else {
-      console.log('Skipped Loading');
-    }
-    return next.handle(clonedRequest).pipe(
-      map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse)
-          return event.clone({ body: event.body.data });
+		// Add authorization header if not skipping auth
+		if (token && !skipAuth) {
+			clonedRequest = clonedRequest.clone({
+				setHeaders: {
+					authorization: `Bearer ${token}`,
+				},
+				withCredentials: true,
+			});
+		}
 
-        return event;
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log('error in http interceptor ::', error);
-        let errorMessage: string = 'Something went wrong, please try again';
+		const skipLoading = request.context.get(SKIP_LOADING);
 
-        if (
-          error.error &&
-          Array.isArray(error.error.errors) &&
-          error.error.errors.length > 0
-        ) {
-          const firstError = error.error.errors[0];
-          if (firstError) {
-            const errorCode = firstError.code;
-            errorMessage = getErrorMessage(errorCode);
+		if (!skipLoading) {
+			this._loadingService.show();
+		} else {
+			console.log('Skipped Loading');
+		}
 
-            if (errorCode === ErrorCodes.unauthorized)
-              return this._handleUnauthorizedError(request, next, error);
-          }
-        }
+		return next.handle(clonedRequest).pipe(
+			map((event: HttpEvent<any>) => {
+				if (event instanceof HttpResponse)
+					return event.clone({ body: event.body.data });
 
-        return throwError(() => new Error(errorMessage));
-      }),
-      finalize(() => {
-        this._loadingService.hide(); // Stop loading indicator
-      })
-    );
-  }
+				return event;
+			}),
+			catchError((error: HttpErrorResponse) => {
+				console.log('error in http interceptor ::', error);
+				let errorMessage: string = 'Something went wrong, please try again';
 
-  private _handleUnauthorizedError(
-    request: HttpRequest<unknown>,
-    next: HttpHandler,
-    error: HttpErrorResponse
-  ): Observable<HttpEvent<unknown>> {
-    const refreshToken = localStorage.getItem('refreshToken');
+				if (
+					error.error &&
+					Array.isArray(error.error.errors) &&
+					error.error.errors.length > 0
+				) {
+					const firstError = error.error.errors[0];
+					if (firstError) {
+						const errorCode = firstError.code;
+						errorMessage = getErrorMessage(errorCode);
 
-    if (!refreshToken)
-      return throwError(() => new Error('Refresh token is missing'));
+						if (errorCode === ErrorCodes.unauthorized)
+							return this._handleUnauthorizedError(request, next, error);
+					}
+				}
 
-    return this._http
-      .post(`${environment.apiUrl}/auth/token/refresh`, { refreshToken })
-      .pipe(
-        switchMap((response: any) => {
-          const newAccessToken = response.accessToken;
-          const newRefreshToken = response.refreshToken;
+				return throwError(() => new Error(errorMessage));
+			}),
+			finalize(() => {
+				this._loadingService.hide(); // Stop loading indicator
+			})
+		);
+	}
 
-          localStorage.setItem('authToken', newAccessToken);
-          localStorage.setItem('refreshToken', newRefreshToken);
+	private _handleUnauthorizedError(
+		request: HttpRequest<unknown>,
+		next: HttpHandler,
+		error: HttpErrorResponse
+	): Observable<HttpEvent<unknown>> {
+		const refreshToken = localStorage.getItem('refreshToken');
 
-          const clonedRequest = request.clone({
-            setHeaders: {
-              Authorization: `Bearer ${newAccessToken}`,
-            },
-            withCredentials: true,
-          });
+		if (!refreshToken)
+			return throwError(() => new Error('Refresh token is missing'));
 
-          return next.handle(clonedRequest);
-        }),
-        catchError((refreshError: HttpErrorResponse) => {
-          console.log('refreshError ::', refreshError);
-          let refreshErrorMessage = 'Session timeout. Please log in again.';
+		return this._http
+			.post(`${environment.apiUrl}/auth/token/refresh`, { refreshToken })
+			.pipe(
+				switchMap((response: any) => {
+					const newAccessToken = response.accessToken;
+					const newRefreshToken = response.refreshToken;
 
-          localStorage.removeItem('authToken');
-          localStorage.removeItem('refreshToken');
+					localStorage.setItem('authToken', newAccessToken);
+					localStorage.setItem('refreshToken', newRefreshToken);
 
-          this._store.dispatch(removeStudentProfile());
+					const clonedRequest = request.clone({
+						setHeaders: {
+							Authorization: `Bearer ${newAccessToken}`,
+						},
+						withCredentials: true,
+					});
 
-          this._router.navigate(['/']);
+					return next.handle(clonedRequest);
+				}),
+				catchError((refreshError: HttpErrorResponse) => {
+					console.log('refreshError ::', refreshError);
+					let refreshErrorMessage = 'Session timeout. Please log in again.';
 
-          return throwError(() => new Error(refreshErrorMessage));
-        })
-      );
-  }
+					localStorage.removeItem('authToken');
+					localStorage.removeItem('refreshToken');
+
+					this._store.dispatch(removeStudentProfile());
+
+					this._router.navigate(['/']);
+
+					return throwError(() => new Error(refreshErrorMessage));
+				})
+			);
+	}
 }
