@@ -51,7 +51,7 @@ interface GetLastViewedCourseLastViewedLectureResponseDTO {
   title: string;
   description: string;
   duration: number;
-  thumbnail: string | null;
+  thumbnail: string;
   order: number;
   watchDuration: number;
 }

@@ -1,22 +1,13 @@
-<nav class="navbar navbar-expand-lg">
+<!-- <nav class="navbar navbar-expand-lg">
   <div class="container-fluid container">
     <a class="navbar-brand" href="/">Learning Management System</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
-        <!-- <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li> -->
+
         <li *ngIf="student" class="nav-item ms-auto">
           <div [routerLink]="['/my-learnings']" class="nav-link">
             My Learning
@@ -29,13 +20,7 @@
           </div>
         </li>
         <li *ngIf="student" class="nav-item dropdown ms-3">
-          <a
-            class="nav-link"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -43,12 +28,62 @@
               <a class="dropdown-item" (click)="openModal()">View Profile</a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="openEditProfile()"
-                >Edit Profile</a
-              >
+              <a class="dropdown-item" (click)="openEditProfile()">Edit Profile</a>
             </li>
-            <li><hr class="dropdown-divider" /></li>
-            <!-- <li><a class="dropdown-item">Change Password</a></li> -->
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+        <li *ngIf="!student" class="nav-item ms-auto">
+          <button class="login-btn" [routerLink]="['/auth/login']">
+            Login
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+
+<nav class="custom-navbar navbar navbar-expand-lg">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">LMS</a>
+
+    <!-- Toggler Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li *ngIf="student" class="nav-item me-2">
+          <div class="nav-link" [routerLink]="['/my-learnings']">My Learnings</div>
+        </li>
+        <li *ngIf="student" class="nav-item me-2">
+          <div class="nav-link" [routerLink]="['/cart/shopping-cart']">
+            <i class="bi bi-cart3"></i>
+          </div>
+        </li>
+        <li *ngIf="student" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" (click)="openModal()">View Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="openEditProfile()">Edit Profile</a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
             <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
           </ul>
         </li>

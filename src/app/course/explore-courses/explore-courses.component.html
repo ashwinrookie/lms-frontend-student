@@ -3,32 +3,24 @@
   <ng-container *ngIf="lastViewedCourse">
     <h2>Your Progress</h2>
     <div class="progress-container">
-      <img
-        class="progress-container__thumbnail"
-        src="./../../../assets/dummy-course.svg"
-        alt=""
-      />
+      <img class="progress-container__thumbnail" [src]="lastViewedCourse.image" alt="" />
       <div class="w-100 pe-5">
         <p class="progress-container__course-name">
           {{ lastViewedCourse.title }}
         </p>
-        <p class="progress-container__date-started">Started on 12/07/2023</p>
-        <p>
-          <ngb-progressbar
-            class="progress-container__progressbar"
-            [showValue]="true"
-            [value]="50"
-            [striped]="true"
-            [animated]="true"
-            height="1.3rem"
-          ></ngb-progressbar>
+        <p class="progress-container__date-started">Category - {{lastViewedCourse.category}}</p>
+        <p class="progress-container__lastviewed-lecture">Last viewed lecture -
+          {{lastViewedCourse.lastViewedLecture?.title}}
         </p>
-        <p class="progress-container__modules-completed">20 of 30 Modules</p>
+
+        <p>
+          <ngb-progressbar class="progress-container__progressbar" [showValue]="true"
+            [value]="lastViewedCourse && lastViewedCourse.lastViewedLecture ? ((lastViewedCourse.lastViewedLecture.watchDuration/lastViewedCourse.lastViewedLecture.duration)* 100) : 0"
+            [striped]="true" [animated]="true" height="1.3rem"></ngb-progressbar>
+        </p>
+        <!-- <p class="progress-container__modules-completed">20 of 30 Modules</p> -->
         <div class="text-end">
-          <button
-            routerLink="/course-video-player"
-            class="progress-container__continue-btn"
-          >
+          <button [routerLink]="['/course-video-player', lastViewedCourse.id]" class="progress-container__continue-btn">
             Continue
           </button>
         </div>
@@ -49,27 +41,15 @@
         <div class="col-12 col-md-8">
           <p class="mb-1">Search</p>
 
-          <input
-            class="filter-container__search-bar"
-            type="search"
-            [(ngModel)]="searchString"
-            (ngModelChange)="exploreCourses(searchString, selectedCategories)"
-            name="searchString"
-          />
+          <input class="filter-container__search-bar" type="search" [(ngModel)]="searchString"
+            (ngModelChange)="exploreCourses(searchString, selectedCategories)" name="searchString" />
         </div>
         <div class="col-7 col-md-4 mt-3 mt-md-0">
           <p class="mb-1">Filter by Category</p>
 
-          <ng-multiselect-dropdown
-            [placeholder]="'Select Categories'"
-            [settings]="dropdownSettings"
-            [data]="categories"
-            [(ngModel)]="selectedItems"
-            (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)"
-            name="categories"
-            (ngModelChange)="exploreCourses(searchString, selectedCategories)"
-          >
+          <ng-multiselect-dropdown [placeholder]="'Select Categories'" [settings]="dropdownSettings" [data]="categories"
+            [(ngModel)]="selectedItems" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+            name="categories" (ngModelChange)="exploreCourses(searchString, selectedCategories)">
           </ng-multiselect-dropdown>
         </div>
       </div>
@@ -95,11 +75,7 @@
             </p>
 
             <div class="d-flex align-items-center mb-4">
-              <img
-                class="course-card__instructor-profilepic"
-                [src]="course.creators[0].profilePicture"
-                alt=""
-              />
+              <img class="course-card__instructor-profilepic" [src]="course.creators[0].profilePicture" alt="" />
               <div>
                 <p class="course-card__instructor-name">
                   {{ course.creators[0].firstName }}
@@ -111,19 +87,13 @@
               </div>
               <p class="course-card__price">$ {{ course.price.value }}</p>
             </div>
-            <button
-              *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
-              [routerLink]="['/course-video-player', course.id]"
-              (click)="$event.stopPropagation()"
-              class="course-card__enroll-btn"
-            >
+            <button *ngIf="course.isStudentEnrolledForCourse; else addToCartBtn"
+              [routerLink]="['/course-video-player', course.id]" (click)="$event.stopPropagation()"
+              class="course-card__enroll-btn">
               Continue
             </button>
             <ng-template #addToCartBtn>
-              <button
-                (click)="addCourseToCart($event, course.id)"
-                class="course-card__enroll-btn"
-              >
+              <button (click)="addCourseToCart($event, course.id)" class="course-card__enroll-btn">
                 Add to Cart
               </button>
             </ng-template>

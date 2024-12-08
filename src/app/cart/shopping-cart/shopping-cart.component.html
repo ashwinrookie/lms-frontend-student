@@ -1,14 +1,10 @@
 <div class="container">
   <div class="page-title">Shopping Cart</div>
   <div class="row">
-    <div class="col-9">
+    <div class="col-12 col-md-9">
       <div class="w-100 d-flex">
         <p class="cart-items-no">{{ cart?.courses?.length }} course in cart</p>
-        <button
-          *ngIf="cart?.courses?.length > 0"
-          class="clear-cart-btn"
-          (click)="clearCart()"
-        >
+        <button *ngIf="cart?.courses?.length > 0" class="clear-cart-btn" (click)="clearCart()">
           Clear Cart
         </button>
       </div>
@@ -27,10 +23,7 @@
               {{ course.totalLecturesCount }} lectures
             </p>
           </div>
-          <button
-            (click)="removeCourseFromCart(course.id)"
-            class="course-details__remove-btn"
-          >
+          <button (click)="removeCourseFromCart(course.id)" class="course-details__remove-btn">
             Remove
           </button>
           <p class="course-details__price">CA${{ course.value }}</p>
@@ -40,7 +33,7 @@
         <p>Cart currently empty.</p>
       </ng-template>
     </div>
-    <div class="col-3 ps-5">
+    <div class="col-12 col-md-3 ps-md-5">
       <div class="subtotal-container">
         <p class="subtotal-container__title">Subtotal:</p>
         <p class="subtotal-container__price">CA$ {{ cart?.totalValue }}</p>
