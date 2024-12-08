@@ -46,11 +46,13 @@ export class GoogleSigninComponent implements AfterViewInit {
       redirectUri: redirect_uri,
     };
     this._authService.googleSignin(formData).subscribe({
-      next: (googleSigninResponse) => {
+      next: async (googleSigninResponse) => {
         console.log(googleSigninResponse);
 
         localStorage.setItem('authToken', googleSigninResponse.accessToken);
         localStorage.setItem('refreshToken', googleSigninResponse.refreshToken);
+
+		await new Promise(resolve => setTimeout(resolve, 5000));
 
         this._router.navigate(['/']);
       },

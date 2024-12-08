@@ -1,11 +1,8 @@
 <div class="container">
   <div class="row mt-5">
     <div class="col-12 col-md-7">
-      <app-video-player
-        (timeUpdate)="onTimeUpdate($event)"
-        [videoSrc]="selectedVideo"
-        [poster]="selectedThumbnail"
-      ></app-video-player>
+      <app-video-player (timeUpdate)="onTimeUpdate($event)" (videoEnded)="handleVideoEnded()" [videoSrc]="selectedVideo"
+        [poster]="selectedThumbnail" [watchDuration]="savedDuration"></app-video-player>
     </div>
     <div class="col-12 col-md-5">
       <div class="lectures-section">
@@ -14,10 +11,8 @@
           <p>{{ course.totalDuration | formatTime }}</p>
         </div>
         <div class="lectures-section__lectures-container">
-          <div
-            *ngFor="let lecture of course.sections[0].lectures; let i = index"
-            class="lectures-container__single-lecture"
-          >
+          <div *ngFor="let lecture of course.sections[0].lectures; let i = index"
+            class="lectures-container__single-lecture">
             <div>
               <p class="single-lecture__lecture-count">{{ i + 1 }}</p>
             </div>
@@ -42,11 +37,7 @@
         {{ course.description }}
       </p>
       <div class="instructor-container">
-        <img
-          class="instructor-container__img"
-          [src]="course.creators[0].profilePicture"
-          alt="Ins"
-        />
+        <img class="instructor-container__img" [src]="course.creators[0].profilePicture" alt="Ins" />
         <div>
           <p class="instructor-container__name">
             {{ course.creators[0].firstName }}
@@ -64,15 +55,8 @@
     <div class="col-12 col-md-7">
       <h3>Course Modules</h3>
       <div class="course-modules-container">
-        <div
-          *ngFor="let module of course.sections"
-          class="course-modules-container__module"
-        >
-          <img
-            class="course-module__thumbnail"
-            [src]="module.lectures[0].thumbnail"
-            alt=""
-          />
+        <div *ngFor="let module of course.sections" class="course-modules-container__module">
+          <img class="course-module__thumbnail" [src]="module.lectures[0].thumbnail" alt="" />
           <div>
             <p class="course-module__name">Module 1: {{ module.title }}</p>
             <p class="course-module__sections">

@@ -21,9 +21,10 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('videoPlayer', { static: true }) videoPlayerElement!: ElementRef;
   @Input() videoSrc!: string; // Input for video URL
   @Input() poster!: string; // Input for video poster image
+  @Input() watchDuration: number = 0; // Input for watch duration
   player!: Player;
   @Output() timeUpdate = new EventEmitter<number>();
-
+  @Output() videoEnded = new EventEmitter<void>();
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {}
@@ -49,6 +50,11 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
       src: this.videoSrc,
       type: 'application/x-mpegURL', // For .m3u8 videos
     });
+    this.player.ready(() => {
+      if (this.watchDuration > 0) {
+        this.player.currentTime(this.watchDuration);
+      }
+    });
 
     // Add event listeners if needed
     this.player.on('error', () => {
@@ -60,6 +66,11 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
         const playedDuration = this.player.currentTime();
         this.timeUpdate.emit(playedDuration);
       });
+
+    // Emit when the video ends
+    this.player.on('ended', () => {
+      this.videoEnded.emit();
+    });
   }
 
   ngOnDestroy(): void {

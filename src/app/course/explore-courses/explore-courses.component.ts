@@ -45,8 +45,6 @@ export class ExploreCoursesComponent {
 
     console.log(
       'courses :: categories :: lastViewedCourse ::',
-      this._courses,
-      this._categories,
       this._lastViewedCourse
     );
   }
