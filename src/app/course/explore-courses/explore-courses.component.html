@@ -56,10 +56,10 @@
     </form>
   </div>
 
+  <div *ngIf="courses && courses.length > 0; else noCourses">
   <div class="row mt-4">
-    <div *ngIf="courses && courses.length > 0; else noCourses">
       <div *ngFor="let course of courses" class="col-12 col-md-4">
-        <div class="course-card" [routerLink]="['./course-details', course.id]">
+        <div class="course-card h-100" [routerLink]="['./course-details', course.id]">
           <div class="course-card__thumbnail-container">
             <img class="course-card__thumbnail" [src]="course.image" alt="" />
             <div class="course-card__duration">
@@ -101,8 +101,8 @@
         </div>
       </div>
     </div>
+</div>
     <ng-template #noCourses>
       <p>No available courses</p>
     </ng-template>
-  </div>
 </div>
