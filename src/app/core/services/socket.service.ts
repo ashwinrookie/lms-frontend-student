@@ -13,9 +13,9 @@ export class SocketService {
     this.socket = io('https://api.lms-staging.com/course', {
       path: '/api/main/socket',
       transports: ['websocket'],
-	  query: {
-		authorization: `Bearer ${authToken}`
-	  }
+      query: {
+        authorization: `Bearer ${authToken}`,
+      },
     });
     this.socket.on('connect', () => {
       console.log('Socket connected:', this.socket.id);
@@ -34,10 +34,10 @@ export class SocketService {
     const eventData = {
       courseId,
       lectureId,
-      watchDuration,
+      watchDuration: watchDuration + 1,
     };
 
-	console.log("sendPlayedDuration ::", eventName, eventData);
+    console.log('sendPlayedDuration ::', eventName, eventData);
 
     this.socket.emit(eventName, eventData, (error: any, response: any) => {
       if (error) {

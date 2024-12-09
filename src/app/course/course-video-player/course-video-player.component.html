@@ -12,7 +12,8 @@
         </div>
         <div class="lectures-section__lectures-container">
           <div *ngFor="let lecture of course.sections[0].lectures; let i = index"
-            class="lectures-container__single-lecture">
+            [class.active]="lecture.id === selectedLectureId" class="lectures-container__single-lecture"
+            (click)="onSelectLecture(lecture.link,lecture.thumbnail!,lecture.id,lecture.duration)">
             <div>
               <p class="single-lecture__lecture-count">{{ i + 1 }}</p>
             </div>
