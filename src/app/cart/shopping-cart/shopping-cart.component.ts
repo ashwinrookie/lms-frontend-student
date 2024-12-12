@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GetCartItemsResponseDTO } from 'src/app/core/dto/response/get-cart-items.response.dto';
 import { CartService } from '../services/cart.service';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
@@ -72,8 +73,8 @@ export class ShoppingCartComponent implements OnInit {
 
     // Get the sessionId as a Promise result
     const sessionId = await this.checkoutCart(
-      'http://localhost:4200',
-      'http://localhost:4200/cart/shopping-cart'
+      environment.stripeRedirectUri,
+      `${environment.stripeRedirectUri}/cart/shopping-cart`
     );
 
     if (stripe && sessionId) {

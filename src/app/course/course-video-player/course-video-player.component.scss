@@ -26,11 +26,13 @@
 .lectures-container__single-lecture {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
   box-shadow: rgb(255, 202, 137) 0px 1px 4px;
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 1rem;
+  gap: 12px;
+  cursor: pointer;
 }
 .lectures-container__single-lecture:last-of-type {
   margin-bottom: 0px;
@@ -55,6 +57,7 @@
 .single-lecture__play-icon {
   margin-right: 1rem;
   font-size: 26px;
+  margin-left: auto;
 }
 .course-title {
   font-size: 28px;
@@ -124,4 +127,7 @@
   margin-left: auto;
   margin-bottom: 0;
   color: #7c7c7c;
+}
+.lectures-container__single-lecture.active {
+  background-color: #e0f7fa;
 }
