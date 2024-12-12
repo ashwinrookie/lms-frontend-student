@@ -3,4 +3,5 @@ export const environment = {
   production: false,
   apiUrl: 'https://api.lms-staging.com/api',
   stripeRedirectUri: 'http://localhost:4200',
+  googleOauthRedirectUri: 'http://localhost:4200'
 };
