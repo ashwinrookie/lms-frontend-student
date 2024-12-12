@@ -103,6 +103,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
+  cursor: pointer;
 }
 .course-modules-container__module:last-of-type {
   margin-bottom: 0;
@@ -129,5 +130,9 @@
   color: #7c7c7c;
 }
 .lectures-container__single-lecture.active {
+  background-color: #e0f7fa;
+}
+
+.course-modules-container__module.active {
   background-color: #e0f7fa;
 }

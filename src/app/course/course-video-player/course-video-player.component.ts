@@ -14,8 +14,11 @@ export class CourseVideoPlayerComponent implements OnInit {
   selectedLectureId!: string;
   selectedLectureDuration!: number;
   savedDuration = 0;
+  activeModuleId: string | null = null; // Track the active module
+  selectedLectures: any[] = []; // Array to hold the lectures of the selected module
   private _course: ViewMyCourseResponseDTO;
   private authToken: string = localStorage.getItem('authToken') || '';
+
   constructor(
     private _route: ActivatedRoute,
     private _socketService: SocketService
@@ -24,6 +27,7 @@ export class CourseVideoPlayerComponent implements OnInit {
     this._course = this._route.snapshot.data[0];
     this._socketService.connect(this.authToken);
   }
+
   get course() {
     return this._course;
   }
@@ -45,6 +49,8 @@ export class CourseVideoPlayerComponent implements OnInit {
         this._course.sections[0].lectures[0].duration
       );
     }
+    this.activeModuleId = this._course.sections[0].id; // Set the first module as active initially
+    this.selectedLectures = this._course.sections[0].lectures; // Set lectures of the first module
   }
 
   onSelectLecture(
@@ -59,6 +65,18 @@ export class CourseVideoPlayerComponent implements OnInit {
     this.selectedLectureDuration = duration;
   }
 
+  onSelectModule(module: any): void {
+    this.activeModuleId = module.id; // Set active module ID
+    this.selectedLectures = module.lectures; // Update lectures for selected module
+    const firstLecture = module.lectures[0];
+    this.onSelectLecture(
+      firstLecture.link,
+      firstLecture.thumbnail!,
+      firstLecture.id,
+      firstLecture.duration
+    );
+  }
+
   onTimeUpdate(duration: number): void {
     this._socketService.sendPlayedDuration(
       duration,
@@ -66,6 +84,7 @@ export class CourseVideoPlayerComponent implements OnInit {
       this.selectedLectureId
     );
   }
+
   handleVideoEnded(): void {
     console.log('Video ended');
     this._socketService.sendPlayedDuration(
@@ -74,6 +93,7 @@ export class CourseVideoPlayerComponent implements OnInit {
       this.selectedLectureId
     );
   }
+
   ngOnDestroy(): void {
     this._socketService.disconnect();
   }

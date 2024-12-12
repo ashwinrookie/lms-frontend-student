@@ -14,6 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MyLearningComponent } from './my-learning/my-learning.component';
 import { VideoPlayerComponent } from '../shared/components/video-player/video-player.component';
+import { FooterComponent } from '../shared/components/footer/footer.component';
 @NgModule({
   declarations: [
     CourseComponent,
@@ -33,6 +34,7 @@ import { VideoPlayerComponent } from '../shared/components/video-player/video-pl
     ReactiveFormsModule,
     FormsModule,
     NgMultiSelectDropDownModule.forRoot(),
+    FooterComponent,
   ],
 })
 export class CourseModule {}

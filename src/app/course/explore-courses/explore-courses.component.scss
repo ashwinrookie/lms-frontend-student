@@ -6,6 +6,9 @@
   border-radius: 10px;
   padding: 1rem;
   cursor: pointer;
+  display: flex; /* Makes the card a flex container */
+  flex-direction: column; /* Stacks children vertically */
+  height: 100%; /* Ensure the card fills the available space */
 }
 
 .course-card__thumbnail-container {
@@ -82,6 +85,11 @@
   background-color: $primary-color;
   color: white;
   font-weight: 500;
+}
+.course-card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Takes up all available space */
 }
 
 .progress-container {

@@ -19,8 +19,8 @@
               By {{ course.creators[0] }}
             </p>
             <p class="course-details__duration">
-              {{ course.totalDuration }} total hours |
-              {{ course.totalLecturesCount }} lectures
+              Total hours {{ course.totalDuration | formatTime }} |
+              Lectures {{ course.totalLecturesCount }}
             </p>
           </div>
           <button (click)="removeCourseFromCart(course.id)" class="course-details__remove-btn">
