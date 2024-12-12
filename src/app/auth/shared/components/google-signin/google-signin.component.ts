@@ -1,6 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core';
+import { environment } from "src/environments/environment";
+
 @Component({
   selector: 'app-google-signin',
   templateUrl: './google-signin.component.html',
@@ -9,7 +11,7 @@ import { AuthService } from 'src/app/core';
 export class GoogleSigninComponent implements AfterViewInit {
   googleClientId: string =
     '64064225630-87jioglg0r5mievqsoppf6m2qa1lnatc.apps.googleusercontent.com';
-  redirectUri: string = 'http://localhost:4200/auth/login'; // Your redirect URI
+  redirectUri: string = `${environment.googleOauthRedirectUri}/auth/login`;
 
   constructor(
     private route: ActivatedRoute,
